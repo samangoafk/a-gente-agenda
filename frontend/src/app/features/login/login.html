@@ -1,8 +1,111 @@
-<div style="padding: 2rem; text-align: center;">
-  <h1>Tela de Login</h1>
-  <p>Organize suas aulas e laboratórios em poucos cliques.</p>
-  
-  <button routerLink="/salas" style="padding: 10px 20px; background: #059669; color: white; border: none; borderRadius: 6px; cursor: pointer;">
-    Entrar (Ir para Salas)
-  </button>
+<div class="login-container">
+  <!-- painel esquerdo escuro do balacobaco -->
+  <aside class="painel-lateral">
+    <div class="marca">
+      <div class="icone-marca">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+          <path d="M16 2v4M8 2v4M3 10h18"></path>
+        </svg>
+      </div>
+      <span class="nome-marca">A gente Agenda</span>
+    </div>
+
+    <div class="caixa-login">
+      <span class="subtitulo-badge">BEM-VINDO DE VOLTA</span>
+      <h1 class="titulo-login">Seu espaço, no seu tempo.</h1>
+      <p class="descricao-login">
+        Acesse sua conta para organizar aulas e reservar os melhores ambientes.
+      </p>
+
+      <form class="formulario-login" (submit)="$event.preventDefault()">
+        <div class="grupo-campo">
+          <label for="email">E-mail institucional</label>
+          <input 
+            id="email" 
+            type="email" 
+            value="marina.silva@faculdade.edu.br"
+            placeholder="seu.email@faculdade.edu.br" 
+          />
+        </div>
+
+        <div class="grupo-campo">
+          <div class="linha-rotulo">
+            <label for="senha">Senha</label>
+            <a href="#" class="esqueci-senha">Esqueci minha senha</a>
+          </div>
+          <input 
+            id="senha" 
+            type="password" 
+            value="••••••••••••"
+            placeholder="••••••••" 
+          />
+        </div>
+
+        <button type="submit" class="botao-entrar" routerLink="/salas">
+          Entrar <span>→</span>
+        </button>
+      </form>
+    </div>
+
+    <footer class="rodape-login">
+      Precisa de ajuda? <a href="#">Fale com a secretaria</a>
+    </footer>
+  </aside>
+
+  <!-- Painel Direito Claro / O Mais Maneiro -->
+  <main class="apresentacao-visual">
+    <div class="circulo-fundo"></div>
+
+    <div class="conteudo-apresentacao">
+      <span class="tag-apresentacao">PLANEJE. RESERVE. ENSINE.</span>
+      <h2 class="titulo-apresentacao">
+        Agende suas aulas em salas e laboratórios em poucos cliques.
+      </h2>
+      <p class="subtitulo-apresentacao">Mais tempo para ensinar. Menos tempo organizando.</p>
+
+      <!-- Elementos Gráficos -->
+      <div class="area-grafica">
+        <!-- Calendalrio Insano mockup -->
+        <div class="cartao-calendario">
+          <div class="cabecalho-pontos">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="grade-dias">
+            <div class="item-grade"></div>
+            <div class="item-grade"></div>
+            <div class="item-grade"></div>
+            <div class="item-grade dia-ativo-12">12</div>
+            <div class="item-grade"></div>
+            <div class="item-grade dia-ativo-15">15</div>
+            <div class="item-grade"></div>
+            <div class="item-grade"></div>
+            <div class="item-grade"></div>
+          </div>
+        </div>
+
+        <!-- verificado flutuante de Confirmação -->
+        <div class="badge-confirmacao-flutuante">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <!-- aqui vai o card flutuante de reserva -->
+        <div class="cartao-reserva-flutuante">
+          <div class="icone-reserva">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="informacao-reserva">
+            <strong>Lab 01 reservado</strong>
+            <small>Hoje, 14:30 – 16:00</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
