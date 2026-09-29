@@ -1,0 +1,323 @@
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* = painel escuro (esquerda pt)= */
+.painel-lateral {
+  width: 440px;
+  min-width: 400px;
+  background-color: #0d1f19;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icone-marca {
+  background-color: #1a382e;
+  border: 1px solid #2d5a4a;
+  color: #5eead4;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nome-marca {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.subtitulo-badge {
+  color: #30BFA5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.titulo-login {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0.5rem 0 1rem 0;
+  color: #f8fafc;
+}
+
+.descricao-login {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.formulario-login {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.grupo-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.grupo-campo label {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.linha-rotulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.esqueci-senha {
+  font-size: 0.75rem;
+  color: #30BFA5;
+  text-decoration: none;
+}
+
+.esqueci-senha:hover {
+  text-decoration: underline;
+}
+
+.grupo-campo input {
+  background-color: #162c24;
+  border: 1px solid #23473a;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.grupo-campo input:focus {
+  border-color: #34d399;
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2);
+}
+
+.botao-entrar {
+  margin-top: 0.5rem;
+  background-color: #30BFA5;
+  color: #052e16;
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.botao-entrar:hover {
+  background-color: #2ad4b5;
+}
+
+.rodape-login {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.rodape-login a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* = Painel da Direita(Bolsonaro) =*/
+.apresentacao-visual {
+  flex: 1;
+  background-color: #b5d9ce;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  overflow: hidden;
+}
+
+.circulo-fundo {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 450px;
+  height: 450px;
+  background-color: #9acebf;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.conteudo-apresentacao {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tag-apresentacao {
+  color: #2aa599;
+  font-size: 1.20rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.titulo-apresentacao {
+  color: #0f172a;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.subtitulo-apresentacao {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 3.5rem;
+}
+
+/* Elementos Gráficos & Mockup */
+.area-grafica {
+  position: relative;
+  width: 380px;
+  height: 220px;
+}
+
+.cartao-calendario {
+  width: 300px;
+  height: 180px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cabecalho-pontos {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.cabecalho-pontos span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+}
+
+.grade-dias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.item-grade {
+  height: 32px;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.item-grade.dia-ativo-12 {
+  background-color: #2dd4bf;
+  color: #ffffff;
+}
+
+.item-grade.dia-ativo-15 {
+  background-color: #0d9488;
+  color: #ffffff;
+}
+
+.badge-confirmacao-flutuante {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background-color: #164e63;
+  color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartao-reserva-flutuante {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.icone-reserva {
+  background-color: #ccfbf1;
+  color: #0d9488;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+}
+
+.informacao-reserva {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.informacao-reserva strong {
+  font-size: 0.8rem;
+  color: #0f172a;
+}
+
+.informacao-reserva small {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .apresentacao-visual {
+    display: none;
+  }
+  .painel-lateral {
+    width: 100%;
+  }
+}
