@@ -1,0 +1,214 @@
+.card-sala {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+
+  min-height: 220px;
+}
+
+
+.card-sala:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* variação de cores com base no status */
+
+/* livre - verde */
+
+.card-sala.livre {
+  border-color: #a7e8d8;
+}
+
+.card-sala.livre:hover {
+  border-color: #00a884;
+}
+
+
+/* Ocupado - vermelin */
+
+.card-sala.ocupado {
+  border-color: #fecaca;
+}
+
+.card-sala.ocupado:hover {
+  border-color: #dc2626;
+}
+
+
+/* manutenção - laranja*/
+
+.card-sala.manutencao {
+  border-color: #fed7aa;
+}
+
+.card-sala.manutencao:hover {
+  border-color: #ea580c;
+}
+
+
+.card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+
+/* icone placeholder*/
+
+.icone-tipo {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #e6f7f3;
+  color: #00a884;
+}
+
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.3rem 0.75rem;
+
+  border-radius: 20px;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-status .ponto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+
+/* badge livre*/
+
+.badge-status.livre {
+  background-color: #e6f7f3;
+  color: #00a884;
+}
+
+.badge-status.livre .ponto {
+  background-color: #00a884;
+}
+
+
+/* badge vermelha */
+
+.badge-status.ocupado {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.badge-status.ocupado .ponto {
+  background-color: #dc2626;
+}
+
+
+/* manutenção laranja */
+
+.badge-status.manutencao {
+  background-color: #ffedd5;
+  color: #ea580c;
+}
+
+.badge-status.manutencao .ponto {
+  background-color: #ea580c;
+}
+
+
+
+.card-conteudo {
+  flex: 1;
+}
+
+.categoria-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  color: #9ca3af;
+
+  letter-spacing: 0.05em;
+}
+
+.nome-sala {
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  color: #1f2937;
+
+  margin: 0.25rem 0 0.85rem 0;
+}
+
+.info-detalhes {
+  display: flex;
+  gap: 1rem;
+
+  color: #6b7280;
+
+  font-size: 0.8rem;
+}
+
+.item-detalhe {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+
+.card-rodape {
+  border-top: 1px solid #f3f4f6;
+
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.825rem;
+  font-weight: 600;
+
+  color: #4b5563;
+}
+
+.seta {
+  font-size: 1rem;
+
+  transition: transform 0.2s ease;
+}
+
+
+.card-sala:hover .card-rodape {
+  color: #00a884;
+}
+
+.card-sala:hover .seta {
+  transform: translateX(3px);
+}
