@@ -1,1 +1,91 @@
-<p>pop-up-reserva-sala works!</p>
+<div class="overlay-modal" *ngIf="exibe" (click)="onFechar()">
+  <div class="card-modal" (click)="$event.stopPropagation()">
+    
+    <!-- Botão x de fechar -->
+    <button type="button" class="btn-fechar" (click)="onFechar()" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Ícone Centralizado -->
+    <div class="container-icone">
+      <!-- 1. Ícone Verde para Sala Disponível -->
+      <div class="box-icone livre" *ngIf="status === 'livre'">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <!-- 2. Ícone Vermelho/Rosa para Manutenção -->
+      <div class="box-icone manutencao" *ngIf="status === 'manutencao'">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9430D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+        </svg>
+      </div>
+
+      <!-- 3. Ícone Vermelho/Rosa para Horários Cheios -->
+      <div class="box-icone ocupado" *ngIf="status === 'ocupado'">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Título e Textos -->
+    <div class="conteudo-textos">
+      <span class="subtitulo-sala">{{ nomeSala || 'NOME DA SALA' }}</span>
+
+      <h2 class="titulo-modal" [ngSwitch]="status">
+        <ng-container *ngSwitchCase="'livre'">Sala disponível!</ng-container>
+        <ng-container *ngSwitchCase="'manutencao'">Sala em manutenção</ng-container>
+        <ng-container *ngSwitchCase="'ocupado'">Todos os horários estão cheios</ng-container>
+      </h2>
+
+      <!-- Descrição Estado 1: Livre -->
+      <p class="descricao-modal" *ngIf="status === 'livre'">
+        Deseja agendar na <strong>{{ nomeSala }}</strong>? Você ainda possui <strong>{{ creditos }} créditos</strong> de agendamento disponíveis.
+      </p>
+
+      <!-- Descrição Estado 2: Manutenção -->
+      <p class="descricao-modal" *ngIf="status === 'manutencao'">
+        Por favor, selecione outra sala ou altere a data para continuar seu agendamento.
+      </p>
+
+      <!-- Descrição Estado 3: Ocupado -->
+      <p class="descricao-modal" *ngIf="status === 'ocupado'">
+        Esta sala não possui horários vagos para a data selecionada. Por favor, selecione outra data ou outra sala.
+      </p>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="container-botoes">
+      <!-- Ações: Sala Disponível -->
+      <ng-container *ngIf="status === 'livre'">
+        <button type="button" class="btn-cancelar" (click)="onFechar()">Cancelar</button>
+        <button type="button" class="btn-principal" (click)="onConfirmar()">
+          Marcar horário
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </ng-container>
+
+      <!-- Ações: Sala em Manutenção -->
+      <button *ngIf="status === 'manutencao'" type="button" class="btn-principal largura-total" (click)="onFechar()">
+        Entendi, voltar
+      </button>
+
+      <!-- Ações: Horários Esgotados -->
+      <button *ngIf="status === 'ocupado'" type="button" class="btn-principal largura-total" (click)="onEscolherOutraData()">
+        Escolher outra data
+      </button>
+    </div>
+
+  </div>
+</div>
