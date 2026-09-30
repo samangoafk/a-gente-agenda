@@ -1,12 +1,84 @@
-<div style="padding: 2rem; text-align: center;">
-  <h1>Seleção de Salas</h1>
-  <p>Selecione uma sala para ver os horários.</p>
-  
-  <button routerLink="/agendamentos" style="padding: 10px 20px; background: #059669; color: white; border: none; borderRadius: 6px; cursor: pointer; margin-right: 10px;">
-    Ver Agendamentos da Sala 1
-  </button>
+<div class="pagina-salas">
+  <app-header></app-header>
 
-  <button routerLink="/login" style="padding: 10px 20px; background: #64748B; color: white; border: none; borderRadius: 6px; cursor: pointer;">
-    Sair (Voltar ao Login)
-  </button>
+  <main class="conteudo-salas">
+    <div class="topo-boas-vindas">
+      <div class="texto-saudacao">
+        <span class="data-hoje">SEGUNDA-FEIRA, 26 DE MAIO</span>
+        <h1>Olá, Marina! <span class="texto-suave">Pronta para sua próxima aula?</span></h1>
+      </div>
+
+      <div class="card-creditos">
+        <div class="icone-brilho">✨</div>
+        <div class="info-creditos">
+          <span class="rotulo">Créditos disponíveis</span>
+          <span class="valor">4 agendamentos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Data -->
+    <div class="barra-ferramentas">
+      <div class="filtro-data">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <div class="campo-data">
+          <label>DATA DA RESERVA</label>
+          <span>Segunda, 26 de maio</span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- filtros de categoria(ainda náo funcionais) e Titulo da lista -->
+    <div class="cabecalho-lista">
+      <div>
+        <h2>Salas e laboratórios</h2>
+        <p>Escolha um ambiente para consultar os horários disponíveis.</p>
+      </div>
+
+      <div class="botoes-categoria">
+        <button 
+          class="btn-categoria" 
+          [class.ativo]="filtroAtual === 'todos'" 
+          (click)="alterarFiltro('todos')">
+          Todos
+        </button>
+        <button 
+          class="btn-categoria" 
+          [class.ativo]="filtroAtual === 'livre'" 
+          (click)="alterarFiltro('livre')">
+          Disponíveis
+        </button>
+      </div>
+    </div>
+
+    <!-- grid d 3 Colunas dos Cards de Aula -->
+    <div class="grade-salas">
+      <app-card-status-sala
+        *ngFor="let sala of salasExibidas"
+        [id]="sala.id"
+        [nome]="sala.nome"
+        [tipo]="sala.tipo"
+        [capacidade]="sala.capacidade"
+        [status]="sala.status"
+        [proximoHorario]="sala.proximoHorario"
+        (reservar)="abrirModalReserva($event)">
+      </app-card-status-sala>
+    </div>
+  </main>
+
+  <!-- Pop-Up de Reserva e Detalhes(chama diretamente do card-status-sala) -->
+  <app-pop-up-reserva-sala
+    [exibe]="exibirModal"
+    [nomeSala]="salaSelecionadaNome"
+    [status]="salaSelecionadaStatus"
+    (fechar)="fecharModal()"
+    (confirmar)="confirmarReservaModal()"
+    (escolherOutraData)="alterarDataModal()">
+  </app-pop-up-reserva-sala>
 </div>
