@@ -1,0 +1,165 @@
+/* Fundo escurecido e desfocado */
+.overlay-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Card central do Modal */
+.card-modal {
+  background-color: #ffffff;
+  border-radius: 28px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+  animation: scaleUp 0.2s ease-out;
+}
+
+/* Botão de Fechar (X) */
+.btn-fechar {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 12px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+
+.btn-fechar:hover {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+/* Caixa Squircle para os ícones */
+.container-icone {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.box-icone {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-icone.livre {
+  background-color: #e6f7f3;
+}
+
+
+.box-icone.manutencao {
+  background-color: #ffedd5;
+}
+
+.box-icone.ocupado {
+  background-color: #fdeaea;
+}
+
+/* Textos e Tipografia */
+.subtitulo-sala {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #1aa58f;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.titulo-modal {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a2e2b;
+  margin: 0 0 0.85rem 0;
+  line-height: 1.25;
+}
+
+.descricao-modal {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1.75rem 0;
+  padding: 0 0.25rem;
+}
+
+.descricao-modal strong {
+  color: #334155;
+  font-weight: 700;
+}
+
+/* Container de Botões */
+.container-botoes {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Botão Cancelar (Cinza claro com contorno suave) */
+.btn-cancelar {
+  flex: 1;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+  background-color: #f1f5f9;
+}
+
+/* Botão Principal Turquesa/Verde */
+.btn-principal {
+  flex: 1.2;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #23c4a8;
+  border: none;
+  color: #0c3b33;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: opacity 0.2s;
+}
+
+.btn-principal:hover {
+  opacity: 0.9;
+}
+
+.btn-principal.largura-total {
+  width: 100%;
+  flex: none;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
