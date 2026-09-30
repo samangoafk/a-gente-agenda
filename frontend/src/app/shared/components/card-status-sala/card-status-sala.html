@@ -1,1 +1,67 @@
-<p>card-status-sala works!</p>
+<div
+  class="card-sala"
+  [ngClass]="status"
+  (click)="aoClicarReservar($event)"
+>
+  <!-- Topo -->
+  <div class="card-topo">
+    <div class="icone-tipo" [ngClass]="tipoClasseCss">
+      <svg *ngIf="tipo === 'Laboratório'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+      <svg *ngIf="tipo === 'Sala de Aula'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-3" />
+      </svg>
+      <svg *ngIf="tipo === 'Auditório'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+      </svg>
+      <svg *ngIf="tipo === 'Oficina'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 2v7.51L4.53 22H19.5L14 9.51V2h-4z" />
+      </svg>
+    </div>
+
+    <span class="badge-status" [ngClass]="status">
+      <span class="ponto"></span>
+      <ng-container [ngSwitch]="status">
+        <span *ngSwitchCase="'livre'">Disponível</span>
+        <span *ngSwitchCase="'ocupado'">Horários esgotados</span>
+        <span *ngSwitchCase="'manutencao'">Em manutenção</span>
+      </ng-container>
+    </span>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="card-conteudo">
+    <span class="categoria-label">{{ tipo }}</span>
+    <h3 class="nome-sala">{{ nome }}</h3>
+
+    <div class="info-detalhes">
+      <span class="item-detalhe">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+        </svg>
+        Até {{ capacidade }} pessoas
+      </span>
+
+      <span class="item-detalhe" *ngIf="proximoHorario">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        A partir das {{ proximoHorario }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="card-rodape">
+    <span>
+      {{ status === 'manutencao' || status === 'ocupado' ? 'Ver detalhes' : 'Ver horários' }}
+    </span>
+    <span class="seta">&rarr;</span>
+  </div>
+</div>
