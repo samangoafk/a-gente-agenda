@@ -1,7 +1,36 @@
-<header> 
-  <nav>
-    <a routerLink="/login" routerLinkActive="active">login</a>
-    <a routerLink="/salas" routerLinkActive="active">salas</a>
-    <a routerLink="/agendamentos" routerLinkActive="active">agendamentos</a>
-  </nav>
+<header class="header-principal">
+  <div class="header-container">
+    <!-- Logo placeholder -->
+    <div class="header-brand" routerLink="/salas">
+      <div class="icone-marca">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+          <path d="M16 2v4M8 2v4M3 10h18"></path>
+        </svg>
+      </div>
+      <span class="nome-marca">A gente <strong>Agenda</strong></span>
+    </div>
+
+    <!-- Links de Navegação -->
+    <nav class="navegacao-central">
+      <a routerLink="/salas" class="link-nav ativo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Salas
+      </a>
+      <a routerLink="/meus-agendamentos" class="link-nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Meus agendamentos
+      </a>
+    </nav>
+
+    <!-- Perfil placeholder tambem-->
+    <div class="perfil-usuario">
+      <div class="avatar">MS</div>
+      <div class="info-usuario">
+        <span class="nome">Marina Silva</span>
+        <span class="cargo">Professora</span>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
 </header>
