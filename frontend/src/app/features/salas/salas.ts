@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { Header } from '../../shared/components/header/header';
 import { CardStatusSala } from '../../shared/components/card-status-sala/card-status-sala';
 import { PopUpReservaSala } from '../../shared/components/pop-up-reserva-sala/pop-up-reserva-sala';
@@ -22,9 +21,11 @@ interface Sala {
   templateUrl: './salas.html',
   styleUrl: './salas.css'
 })
-
-export class Salas {
+export class Salas implements OnInit, OnDestroy {
   private router = inject(Router);
+
+  dataAtualFormatada: string = '';
+  private timerId: any;
 
   exibirModal: boolean = false;
   salaSelecionadaId: number | null = null;
@@ -39,6 +40,38 @@ export class Salas {
     { id: 5, nome: 'Laboratório de Redes', tipo: 'Laboratório', capacidade: 25, status: 'livre' },
     { id: 6, nome: 'Auditório Principal', tipo: 'Auditório', capacidade: 120, status: 'livre', proximoHorario: '18:00' }
   ];
+
+  ngOnInit(): void {
+    // Atualiza imediatamente ao carregar
+    this.atualizarDataCompleta();
+
+    this.timerId = setInterval(() => {
+      this.atualizarDataCompleta();
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+  }
+
+  private atualizarDataCompleta(): void {
+    const agora = new Date();
+    
+    const dataExtenso = agora.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long'
+    });
+    
+    const horaExtenso = agora.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    this.dataAtualFormatada = `${dataExtenso} - ${horaExtenso}`.toUpperCase();
+  }
 
   get salasExibidas(): Sala[] {
     if (this.filtroAtual === 'livre') {

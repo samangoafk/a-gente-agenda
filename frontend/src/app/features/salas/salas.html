@@ -4,7 +4,7 @@
   <main class="conteudo-salas">
     <div class="topo-boas-vindas">
       <div class="texto-saudacao">
-        <span class="data-hoje">SEGUNDA-FEIRA, 26 DE MAIO</span>
+      <span class="data-hoje">{{ dataAtualFormatada }}</span>
         <h1>Olá, Marina! <span class="texto-suave">Pronta para sua próxima aula?</span></h1>
         
       </div>
@@ -12,7 +12,6 @@
       
     </div>
 
-    <!-- Barra de Data -->
     <div class="barra-ferramentas">
       <div class="filtro-data">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
@@ -29,7 +28,6 @@
       </div>
     </div>
 
-    <!-- filtros de categoria(ainda náo funcionais) e Titulo da lista -->
     <div class="cabecalho-lista">
       <div>
         <h2>Salas e laboratórios</h2>
@@ -52,7 +50,6 @@
       </div>
     </div>
 
-    <!-- grid d 3 Colunas dos Cards de Aula -->
     <div class="grade-salas">
       <app-card-status-sala
         *ngFor="let sala of salasExibidas"
