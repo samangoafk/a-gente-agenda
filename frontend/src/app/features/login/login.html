@@ -18,14 +18,14 @@
         Acesse sua conta para organizar aulas e reservar os melhores ambientes.
       </p>
 
-      <form class="formulario-login" (submit)="$event.preventDefault()">
+      <form class="formulario-login" (ngSubmit)="entrar()">
         <div class="grupo-campo">
           <label for="email">E-mail institucional</label>
           <input 
-            id="email" 
-            type="email" 
-            value="marina.silva@faculdade.edu.br"
-            placeholder="seu.email@faculdade.edu.br" 
+           type="text"
+           name="usuario"
+           [(ngModel)]="usuario"
+           placeholder="Usuário"
           />
         </div>
 
@@ -34,15 +34,15 @@
             <label for="senha">Senha</label>
           </div>
           <input 
-            id="senha" 
-            type="password" 
-            value="••••••••••••"
-            placeholder="••••••••" 
+            type="password"
+            name="senha"
+            [(ngModel)]="senha"
+            placeholder="Senha"
           />
           <a href="#" class="esqueci-senha">Esqueci minha senha</a>
         </div>
         
-        <button type="submit" class="botao-entrar" routerLink="/salas">
+        <button type="submit" class="botao-entrar">
           Entrar <span>→</span>
         </button>
       </form>
