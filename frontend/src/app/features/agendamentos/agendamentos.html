@@ -1,8 +1,137 @@
-<div style="padding: 2rem; text-align: center;">
-  <h1>Grade de Agendamentos</h1>
-  <p>Tabela de horários da sala selecionada.</p>
-  
-  <button routerLink="/salas" style="padding: 10px 20px; background: #059669; color: white; border: none; borderRadius: 6px; cursor: pointer;">
-    ← Voltar para Lista de Salas
-  </button>
+<app-header></app-header>
+
+<div class="pagina-agendamento">
+  <div class="conteudo-agendamento">
+
+    <!-- botão voltar -->
+    <button type="button" class="btn-voltar" (click)="voltar()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      Voltar para salas
+    </button>
+
+    <!-- cabeçalho das salas -->
+    <header class="cabecalho-detalhes">
+      <div class="info-titulo">
+        <span class="tag-secao">NOVO AGENDAMENTO</span>
+        <h1 class="titulo-sala">{{ salaNome }}</h1>
+        <p class="subtitulo-data">Segunda-feira, 26 de maio de 2025</p>
+      </div>
+
+      <span class="badge-status disponivel">
+        <span class="ponto-verde"></span> Disponível
+      </span>
+    </header>
+
+    <!-- grid principal -->
+    <div class="grid-agendamento">
+      
+      <!-- Lado Esquerdo: seleção de Matéria e Lista de Horários -->
+      <section class="painel-horarios">
+        
+        <div class="campo-grupo">
+          <label for="materia">Matéria que ministra</label>
+          <div class="select-container">
+            <select id="materia" [(ngModel)]="materiaSelecionada">
+              <option *ngFor="let m of materias" [value]="m">{{ m }}</option>
+            </select>
+            <svg class="seta-select" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="topo-legenda">
+          <div class="legenda-item livre">
+            <span class="ponto-legenda"></span> Livre
+          </div>
+          <div class="legenda-item ocupado">
+            <span class="ponto-legenda"></span> Ocupado
+          </div>
+        </div>
+
+        <!-- Lista de Cards de Horários -->
+        <div class="lista-slots">
+          <div 
+            *ngFor="let slot of horarios" 
+            class="card-slot"
+            [class.ocupado]="!slot.livre"
+            [class.selecionado]="horarioSelecionado === slot"
+            (click)="selecionarHorario(slot)">
+            
+            <div class="detalhes-slot">
+              <span class="hora-inicio">{{ slot.inicio }}</span>
+
+              <ng-container *ngIf="slot.livre; else slotOcupado">
+                <span class="status-livre">Livre</span>
+              </ng-container>
+
+              <ng-template #slotOcupado>
+                <div class="info-ocupado">
+                  <span class="prof-nome">{{ slot.professor }}</span>
+                  <span class="disciplina-nome">{{ slot.disciplina }}</span>
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Radio Indicator (Apenas para hprários vagos) -->
+            <div class="indicador-radio" *ngIf="slot.livre">
+              <div class="circulo-radio" [class.checado]="horarioSelecionado === slot">
+                <svg *ngIf="horarioSelecionado === slot" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Lado Direito: Resumo da Reserva -->
+      <aside class="painel-resumo">
+        <div class="icone-calendario-container">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+
+        <span class="tag-resumo">RESUMO DA RESERVA</span>
+        <h2 class="titulo-resumo">Está tudo certo?</h2>
+
+        <div class="tabela-resumo">
+          <div class="linha-resumo">
+            <span class="rotulo">Sala</span>
+            <span class="valor valor-destaque">{{ salaNome }}</span>
+          </div>
+
+          <div class="linha-resumo">
+            <span class="rotulo">Data</span>
+            <span class="valor">26 de maio</span>
+          </div>
+
+          <div class="linha-resumo" *ngIf="horarioSelecionado">
+            <span class="rotulo">Horário</span>
+            <span class="valor valor-destaque">{{ horarioSelecionado.inicio }} — {{ horarioSelecionado.fim }}</span>
+          </div>
+
+          </div>
+
+        <button 
+          type="button" 
+          class="btn-confirmar" 
+          [disabled]="!horarioSelecionado"
+          (click)="confirmarAgendamento()">
+          Confirmar agendamento
+        </button>
+      </aside>
+
+    </div>
+
+  </div>
 </div>
