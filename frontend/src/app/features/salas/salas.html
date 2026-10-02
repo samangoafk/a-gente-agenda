@@ -4,30 +4,59 @@
   <main class="conteudo-salas">
     <div class="topo-boas-vindas">
       <div class="texto-saudacao">
-      <span class="data-hoje">{{ dataAtualFormatada }}</span>
+        <span class="data-hoje">{{ dataAtualFormatada }}</span>
         <h1>Olá, Marina! <span class="texto-suave">Pronta para sua próxima aula?</span></h1>
-        
       </div>
-
-      
     </div>
 
+    <!-- Barra de Data com Popover do Calendário -->
     <div class="barra-ferramentas">
-      <div class="filtro-data">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
-          <rect x="3" y="4" width="18" height="16" rx="2"/>
-          <path d="M16 2v4M8 2v4M3 10h18"/>
-        </svg>
-        <div class="campo-data">
-          <label>DATA DA RESERVA</label>
-          <span>Segunda, 26 de maio</span>
+      <div class="filtro-data-container">
+        <div class="filtro-data" (click)="toggleCalendario()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          <div class="campo-data">
+            <label>DATA DA RESERVA</label>
+            <span class="texto-data-reserva">{{ dataReservaTexto }}</span>
+          </div>
+          <svg class="seta-calendario" [class.aberto]="exibirCalendario" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
         </div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
-          <path d="M6 9l6 6 6-6"/>
-        </svg>
+
+        <!-- Dropdown do Calendário -->
+        <div class="popover-calendario" *ngIf="exibirCalendario">
+          <div class="cabecalho-calendario">
+            <button type="button" (click)="mudarMes(-1)">&lsaquo;</button>
+            <span>{{ mesAnoExibicao | titlecase }}</span>
+            <button type="button" (click)="mudarMes(1)">&rsaquo;</button>
+          </div>
+
+          <div class="grid-semana">
+            <span *ngFor="let diaSemana of diasDaSemana">{{ diaSemana }}</span>
+          </div>
+
+          <div class="grid-dias">
+            <button 
+              *ngFor="let dia of diasCalendario"
+              type="button"
+              class="celula-dia"
+              [class.fora-mes]="!dia.mesAtual"
+              [class.desabilitado]="dia.desabilitado"
+              [class.selecionado]="dia.selecionado"
+              [class.hoje]="dia.hoje"
+              [disabled]="dia.desabilitado"
+              (click)="selecionarData(dia)">
+              {{ dia.numeroDia }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Filtros de categoria e Titulo da lista -->
     <div class="cabecalho-lista">
       <div>
         <h2>Salas e laboratórios</h2>
@@ -50,6 +79,7 @@
       </div>
     </div>
 
+    <!-- Grid de Cards -->
     <div class="grade-salas">
       <app-card-status-sala
         *ngFor="let sala of salasExibidas"
@@ -64,7 +94,7 @@
     </div>
   </main>
 
-  <!-- Pop-Up de Reserva e Detalhes(chama diretamente do card-status-sala) -->
+  <!-- Pop-Up de Reserva -->
   <app-pop-up-reserva-sala
     [exibe]="exibirModal"
     [nomeSala]="salaSelecionadaNome"

@@ -159,9 +159,128 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Grade Responsiva de Cards */
 .grade-salas {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
+}
+.filtro-data-container {
+  position: relative;
+  display: inline-block;
+}
+
+.filtro-data {
+  cursor: pointer;
+  user-select: none;
+}
+
+.seta-calendario {
+  transition: transform 0.2s ease;
+}
+
+.seta-calendario.aberto {
+  transform: rotate(180deg);
+}
+
+.texto-data-reserva {
+  text-transform: capitalize;
+}
+
+/* Popover do Calendário Estilizado */
+.popover-calendario {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 100;
+  width: 280px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.cabecalho-calendario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.cabecalho-calendario button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #00a884;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.cabecalho-calendario button:hover {
+  background-color: #f0fdf4;
+}
+
+.grid-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+.grid-dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.celula-dia {
+  aspect-ratio: 1;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.celula-dia:hover:not(:disabled) {
+  background-color: #e6f4f1;
+  color: #00a884;
+}
+
+/* Dia selecionado */
+.celula-dia.selecionado {
+  background-color: #00a884 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+/* Marcação discreta do dia atual */
+.celula-dia.hoje:not(.selecionado) {
+  border: 1px solid #00a884;
+  color: #00a884;
+  font-weight: bold;
+}
+
+/* Dias desabilitados (passados ou fins de semana) */
+.celula-dia.desabilitado {
+  color: #d1d5db !important;
+  background-color: #f9fafb !important;
+  cursor: not-allowed !important;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.celula-dia.fora-mes {
+  opacity: 0.2;
 }
