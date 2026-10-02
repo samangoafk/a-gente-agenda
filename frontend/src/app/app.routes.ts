@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+// import { Salas } from './features/salas/salas';
+// import { Agendamentos } from './features/agendamentos/agendamentos'; 
 
 export const routes: Routes = [
   {
