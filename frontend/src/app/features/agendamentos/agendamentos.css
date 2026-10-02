@@ -1,0 +1,344 @@
+.pagina-agendamento {
+  min-height: calc(100vh - 70px);
+  background-color: #f3f4f6;
+  padding: 2rem 1.5rem 4rem 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #1f2937;
+}
+
+.conteudo-agendamento {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.btn-voltar {
+  background: transparent;
+  border: none;
+  color: #00a884;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.btn-voltar:hover {
+  opacity: 0.8;
+}
+
+/* Cabeçalho */
+
+.cabecalho-detalhes {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.tag-secao {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #00a884;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.titulo-sala {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.subtitulo-data {
+  font-size: 0.925rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.badge-status.disponivel {
+  background-color: #d1fae5;
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ponto-verde {
+  width: 7px;
+  height: 7px;
+  background-color: #10b981;
+  border-radius: 50%;
+}
+
+/* Grid Layout */
+
+.grid-agendamento {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Painel da Esquerda */
+
+.painel-horarios {
+  background: #e9ecef;
+  border-radius: 20px;
+  padding: 1.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.campo-grupo label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.select-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-container select {
+  width: 100%;
+  appearance: none;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: #111827;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+}
+
+.seta-select {
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.topo-legenda {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legenda-item.livre .ponto-legenda {
+  width: 8px;
+  height: 8px;
+  background-color: #00a884;
+  border-radius: 50%;
+}
+
+.legenda-item.ocupado .ponto-legenda {
+  width: 8px;
+  height: 8px;
+  background-color: #9ca3af;
+  border-radius: 50%;
+}
+
+/* Slots de Horários */
+
+.lista-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-slot {
+  background-color: #a7f3d0;
+  border: 1px solid #6ee7b7;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-slot.selecionado {
+  background-color: #6ee7b7;
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.3);
+}
+
+.card-slot.ocupado {
+  background-color: #d1d5db;
+  border-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.detalhes-slot {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hora-inicio {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  min-width: 50px;
+}
+
+.status-livre {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #00a884;
+}
+
+.info-ocupado {
+  display: flex;
+  flex-direction: column;
+}
+
+.prof-nome {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.disciplina-nome {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.circulo-radio {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #00a884;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.circulo-radio.checado {
+  background-color: #00a884;
+}
+
+/* Painel da Direita - Resumo */
+
+.painel-resumo {
+  background: #e9ecef;
+  border-radius: 20px;
+  padding: 1.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.icone-calendario-container {
+  width: 44px;
+  height: 44px;
+  background-color: #d1fae5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.tag-resumo {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #00a884;
+  letter-spacing: 0.06em;
+}
+
+.titulo-resumo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0.25rem 0 1.5rem 0;
+}
+
+.tabela-resumo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid #d1d5db;
+  margin-bottom: 1.5rem;
+}
+
+.linha-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.rotulo {
+  color: #6b7280;
+}
+
+.valor {
+  font-weight: 600;
+  color: #111827;
+}
+
+.valor-destaque {
+  font-weight: 700;
+}
+
+.btn-confirmar {
+  width: 100%;
+  background-color: #00a884;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  background-color: #008f70;
+}
+
+.btn-confirmar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .grid-agendamento {
+    grid-template-columns: 1fr;
+  }
+}
