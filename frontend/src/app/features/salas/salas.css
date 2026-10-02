@@ -186,7 +186,7 @@
   text-transform: capitalize;
 }
 
-/* Popover do Calendário Estilizado */
+/* Popover do Calendário */
 .popover-calendario {
   position: absolute;
   top: calc(100% + 8px);
@@ -258,21 +258,18 @@
   color: #00a884;
 }
 
-/* Dia selecionado */
 .celula-dia.selecionado {
   background-color: #00a884 !important;
   color: #ffffff !important;
   font-weight: bold;
 }
 
-/* Marcação discreta do dia atual */
 .celula-dia.hoje:not(.selecionado) {
   border: 1px solid #00a884;
   color: #00a884;
   font-weight: bold;
 }
 
-/* Dias desabilitados (passados ou fins de semana) */
 .celula-dia.desabilitado {
   color: #d1d5db !important;
   background-color: #f9fafb !important;
