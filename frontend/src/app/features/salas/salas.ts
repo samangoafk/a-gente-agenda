@@ -34,18 +34,18 @@ interface DiaCalendario {
 export class Salas implements OnInit, OnDestroy {
   private router = inject(Router);
 
-  // Relógio
+  // Relógio em tempo real
   dataAtualFormatada: string = '';
   private timerId: any;
 
-  // Calendário
+  // Calendário Customizado
   exibirCalendario: boolean = false;
   dataReservaSelecionada: Date = new Date();
   mesExibicaoCalendario: Date = new Date();
   diasCalendario: DiaCalendario[] = [];
   diasDaSemana: string[] = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-  // Modal e Lista
+  // Controle de Modal e Lista
   exibirModal: boolean = false;
   salaSelecionadaId: number | null = null;
   salaSelecionadaNome: string = '';
@@ -77,7 +77,7 @@ export class Salas implements OnInit, OnDestroy {
   private atualizarDataCompleta(): void {
     const agora = new Date();
     const dataExtenso = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
-    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit'});
+    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     this.dataAtualFormatada = `${dataExtenso} - ${horaExtenso}`.toUpperCase();
   }
 
@@ -119,7 +119,6 @@ export class Salas implements OnInit, OnDestroy {
 
     const dias: DiaCalendario[] = [];
 
-    // Preenche dias anteriores
     const diasMesAnterior = new Date(ano, mes, 0).getDate();
     for (let i = diaInicialSemana - 1; i >= 0; i--) {
       const d = new Date(ano, mes - 1, diasMesAnterior - i);
@@ -133,7 +132,6 @@ export class Salas implements OnInit, OnDestroy {
       });
     }
 
-    // Preenche dias do mês atual
     for (let i = 1; i <= totalDiasMes; i++) {
       const d = new Date(ano, mes, i);
       const dataComparacao = new Date(ano, mes, i);
@@ -157,7 +155,6 @@ export class Salas implements OnInit, OnDestroy {
       });
     }
 
-    // Completa a grade
     const totalPreenchido = dias.length;
     const restante = 42 - totalPreenchido;
     for (let i = 1; i <= restante; i++) {
@@ -199,7 +196,7 @@ export class Salas implements OnInit, OnDestroy {
     });
   }
 
-  // --- FUNÇÕES DE SALAS ---
+  // --- LÓGICA DE NAVEGAÇÃO E MODAL ---
 
   get salasExibidas(): Sala[] {
     if (this.filtroAtual === 'livre') {
@@ -230,11 +227,16 @@ export class Salas implements OnInit, OnDestroy {
   confirmarReservaModal() {
     this.exibirModal = false;
     if (this.salaSelecionadaId) {
-      this.router.navigate(['/agendamentos', this.salaSelecionadaId]);
+      const dataIso = this.dataReservaSelecionada.toISOString().split('T')[0];
+      // Redireciona para a tela de agendamentos passando o ID da sala e a data selecionada
+      this.router.navigate(['/agendamentos', this.salaSelecionadaId], {
+        queryParams: { data: dataIso }
+      });
     }
   }
 
   alterarDataModal() {
     this.exibirModal = false;
+    this.exibirCalendario = true;
   }
 }
