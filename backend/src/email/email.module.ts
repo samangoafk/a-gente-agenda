@@ -7,3 +7,4 @@ import { EmailController } from './email.controller.js';
   providers: [EmailService],
 })
 export class EmailModule {}
+
