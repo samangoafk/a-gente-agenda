@@ -77,7 +77,7 @@ export class Salas implements OnInit, OnDestroy {
   private atualizarDataCompleta(): void {
     const agora = new Date();
     const dataExtenso = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
-    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit',});
     this.dataAtualFormatada = `${dataExtenso} - ${horaExtenso}`.toUpperCase();
   }
 
@@ -195,8 +195,6 @@ export class Salas implements OnInit, OnDestroy {
       year: 'numeric'
     });
   }
-
-  // --- LÓGICA DE NAVEGAÇÃO E MODAL ---
 
   get salasExibidas(): Sala[] {
     if (this.filtroAtual === 'livre') {
