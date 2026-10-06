@@ -208,8 +208,6 @@ export class Salas implements OnInit, OnDestroy {
     });
   }
 
-  // --- LÓGICA DE NAVEGAÇÃO E MODAL ---
-
   get salasExibidas(): Sala[] {
     if (this.filtroAtual === 'livre') {
       return this.listaSalas.filter(sala => sala.status === 'livre');

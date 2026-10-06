@@ -16,7 +16,8 @@
       <div class="info-titulo">
         <span class="tag-secao">NOVO AGENDAMENTO</span>
         <h1 class="titulo-sala">{{ salaNome }}</h1>
-        <p class="subtitulo-data">Segunda-feira, 26 de maio de 2025</p>
+        <!-- DATA DINÂMICA (Ex: Segunda-feira, 26 de maio de 2025) -->
+        <p class="subtitulo-data">{{ dataLargaFormatada }}</p>
       </div>
 
       <span class="badge-status disponivel">
@@ -24,10 +25,8 @@
       </span>
     </header>
 
-    <!-- grid principal -->
     <div class="grid-agendamento">
       
-      <!-- Lado Esquerdo: seleção de Matéria e Lista de Horários -->
       <section class="painel-horarios">
         
         <div class="campo-grupo">
@@ -51,7 +50,6 @@
           </div>
         </div>
 
-        <!-- Lista de Cards de Horários -->
         <div class="lista-slots">
           <div 
             *ngFor="let slot of horarios" 
@@ -75,7 +73,6 @@
               </ng-template>
             </div>
 
-            <!-- Radio Indicator (Apenas para hprários vagos) -->
             <div class="indicador-radio" *ngIf="slot.livre">
               <div class="circulo-radio" [class.checado]="horarioSelecionado === slot">
                 <svg *ngIf="horarioSelecionado === slot" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.5">
@@ -94,7 +91,6 @@
         <div class="icone-calendario-container">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
@@ -112,7 +108,8 @@
 
           <div class="linha-resumo">
             <span class="rotulo">Data</span>
-            <span class="valor">26 de maio</span>
+            <!-- DATA DINÂMICA CURTA (Ex: 26 de maio) -->
+            <span class="valor">{{ dataCurtaFormatada }}</span>
           </div>
 
           <div class="linha-resumo" *ngIf="horarioSelecionado">
@@ -120,7 +117,7 @@
             <span class="valor valor-destaque">{{ horarioSelecionado.inicio }} — {{ horarioSelecionado.fim }}</span>
           </div>
 
-          </div>
+        </div>
 
         <button 
           type="button" 

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@nestjs/config": "^12.0.1",
+    "@nestjs/observe": "^0.3.6",
+    "resend": "^6.32.0"
+  }
+}
