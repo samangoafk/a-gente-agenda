@@ -18,27 +18,43 @@
         Acesse sua conta para organizar aulas e reservar os melhores ambientes.
       </p>
 
-      <form class="formulario-login" (ngSubmit)="entrar()">
+      <form class="formulario-login" (ngSubmit)="entrar()" [formGroup]="formulario">
         <div class="grupo-campo">
           <label for="email">E-mail institucional</label>
-          <input 
+          <input type ="email" formControlName="email" 
            type="text"
            name="usuario"
-           [(ngModel)]="usuario"
-           placeholder="Usuário"
+           [(ngModel)]="login"
+           placeholder="E-mail"
           />
+          @if (formulario.get('email')?.touched && formulario.get('email')?.invalid){
+            @if (formulario.get('email')?.errors?.['required']){
+              <small>Campo em branco</small>
+            }
+            @if (formulario.get('email')?.errors?.['email']){
+              <small>Usuário Inválido</small>
+            }
+          }
         </div>
 
         <div class="grupo-campo">
           <div class="linha-rotulo">
             <label for="senha">Senha</label>
           </div>
-          <input 
+          <input type="password" formControlName="senha"
             type="password"
             name="senha"
             [(ngModel)]="senha"
             placeholder="Senha"
           />
+          @if (formulario.get('senha')?.touched && formulario.get('senha')?.invalid){
+            @if (formulario.get('senha')?.errors?.['required']){
+              <small>Campo em branco</small>
+            }
+            @if (formulario.get('senha')?.errors?.['minlength']){
+              <small>Senha há poucos caracters</small>
+            }
+          }
           <a href="#" class="esqueci-senha">Esqueci minha senha</a>
         </div>
         
