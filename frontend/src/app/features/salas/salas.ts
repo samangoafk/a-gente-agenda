@@ -6,6 +6,8 @@ import { Header } from '../../shared/components/header/header';
 import { CardStatusSala } from '../../shared/components/card-status-sala/card-status-sala';
 import { PopUpReservaSala } from '../../shared/components/pop-up-reserva-sala/pop-up-reserva-sala';
 
+import { AuthFacade } from '../../core/facades/auth.facades';
+
 interface Sala {
   id: number;
   nome: string;
@@ -33,6 +35,9 @@ interface DiaCalendario {
 })
 export class Salas implements OnInit, OnDestroy {
   private router = inject(Router);
+  private authFacade = inject(AuthFacade);
+
+  nomeUsuario: string = '';
 
   // Relógio em tempo real
   dataAtualFormatada: string = '';
@@ -62,6 +67,13 @@ export class Salas implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
+    const usuario = this.authFacade.obterUsuarioLogado();
+
+    if(usuario) {
+      this.nomeUsuario = usuario.nome;
+    }
+
+
     this.atualizarDataCompleta();
     this.timerId = setInterval(() => {
       this.atualizarDataCompleta();
@@ -77,7 +89,7 @@ export class Salas implements OnInit, OnDestroy {
   private atualizarDataCompleta(): void {
     const agora = new Date();
     const dataExtenso = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
-    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const horaExtenso = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit',});
     this.dataAtualFormatada = `${dataExtenso} - ${horaExtenso}`.toUpperCase();
   }
 
@@ -204,6 +216,8 @@ export class Salas implements OnInit, OnDestroy {
     }
     return this.listaSalas;
   }
+  
+  
 
   alterarFiltro(status: 'todos' | 'livre') {
     this.filtroAtual = status;
@@ -240,3 +254,4 @@ export class Salas implements OnInit, OnDestroy {
     this.exibirCalendario = true;
   }
 }
+
