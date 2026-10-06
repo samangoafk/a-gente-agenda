@@ -1,75 +1,86 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Usuario } from '../../models/usuarios.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
+  private platformId = inject(PLATFORM_ID);
 
-    private usuarios: Usuario[] = [
-        {
-            id: 1,
-            nome: 'Adam Castro',
-            login: 'adam67@gmail.com',
-            senha: '12345'
-        },
-        {
-            id: 2,
-            nome: 'Yuri Marques',
-            login: 'yuriaura@gmail.com',
-            senha: 'aura67',
-        },
-        {
-            id: 3,
-            nome: 'Matheus Dias',
-            login: 'matheusresende@gmail.com',
-            senha: 'aura67',
-        },
-    ];
+  private usuarios: Usuario[] = [
+    {
+      id: 1,
+      nome: 'Adam Castro',
+      login: 'adam67@gmail.com',
+      senha: '12345'
+    },
+    {
+      id: 2,
+      nome: 'Yuri Marques',
+      login: 'yuriaura@gmail.com',
+      senha: 'aura67',
+    },
+    {
+      id: 3,
+      nome: 'Matheus Dias',
+      login: 'matheusresende@gmail.com',
+      senha: 'aura67',
+    },
+  ];
 
-    private usuarioLogado: Usuario | null = null;
+  private usuarioLogado: Usuario | null = null;
 
-    login(login: string, senha: string): boolean {
-        const usuario = this.usuarios.find(
-            usuario =>
-                usuario.login === login &&
-                usuario.senha === senha
-        );
-        if(!usuario){
-            return false;
-        }
-        this.usuarioLogado = usuario;
+  // Helper para verificar se o código está executando no navegador
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
-        localStorage.setItem(
-            'usuarioLogado',
-            JSON.stringify(usuario)
-        );
-        return true;
+  login(login: string, senha: string): boolean {
+    const usuario = this.usuarios.find(
+      u => u.login === login && u.senha === senha
+    );
+
+    if (!usuario) {
+      return false;
     }
 
-    logout(): void {
-        this.usuarioLogado = null;
-        localStorage.removeItem('usuarioLogado');
+    this.usuarioLogado = usuario;
+
+    if (this.isBrowser) {
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
     }
 
-    estaAutenticado(): boolean {
-        return localStorage.getItem('usuarioLogado') !== null;
+    return true;
+  }
+
+  logout(): void {
+    this.usuarioLogado = null;
+    if (this.isBrowser) {
+      localStorage.removeItem('usuarioLogado');
     }
-    
-    obterUsuarioLogado(): Usuario | null {
-        if (this.usuarioLogado) {
-            return this.usuarioLogado;
-        }
+  }
 
-        const usuarioStorage = localStorage.getItem('usuarioLogado');
+  estaAutenticado(): boolean {
+    if (this.isBrowser) {
+      return localStorage.getItem('usuarioLogado') !== null;
+    }
+    return false;
+  }
 
-        if (!usuarioStorage){
-            return null;
-        }
+  obterUsuarioLogado(): Usuario | null {
+    if (this.usuarioLogado) {
+      return this.usuarioLogado;
+    }
 
+    if (this.isBrowser) {
+      const usuarioStorage = localStorage.getItem('usuarioLogado');
+      if (usuarioStorage) {
         this.usuarioLogado = JSON.parse(usuarioStorage);
-
         return this.usuarioLogado;
+      }
     }
 
+    return null;
+  }
 }
