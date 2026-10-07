@@ -1,0 +1,55 @@
+<div class="overlay-modal" *ngIf="exibe" (click)="onFechar()">
+  <div class="card-pop-up-perfil" (click)="$event.stopPropagation()">
+    
+    <button type="button" class="btn-fechar-modal" (click)="onFechar()" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="header-pop-up">
+      <div class="avatar-grande">
+        {{ iniciais }}
+      </div>
+      <h3 class="nome-pop-up">{{ usuario?.nome || 'Usuário' }}</h3>
+      <span class="email-pop-up">{{ usuario?.login || 'Sem e-mail' }}</span>
+      <span class="badge-cargo">{{ usuario?.perfil || 'Perfil' }}</span>
+    </div>
+
+    <hr class="divisor-pop-up" />
+
+    <div class="opcoes-pop-up">
+      <button type="button" class="btn-opcao" (click)="onVerPerfil()">
+        <div class="icone-opcao icone-verde">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="texto-opcao">
+          <span class="titulo-opcao">Ver perfil</span>
+          <span class="subtitulo-opcao">Gerenciar dados da conta</span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <button type="button" class="btn-opcao" (click)="onLogout()">
+        <div class="icone-opcao icone-vermelho">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </div>
+        <div class="texto-opcao">
+          <span class="titulo-opcao texto-vermelho">Sair da conta</span>
+          <span class="subtitulo-opcao">Encerrar sessão na aplicação</span>
+        </div>
+      </button>
+    </div>
+
+  </div>
+</div>
