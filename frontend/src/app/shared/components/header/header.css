@@ -70,11 +70,23 @@
   border-radius: 3px 3px 0 0;
 }
 
-.perfil-usuario {
+/* Reset de estilos de botão para o Perfil */
+button.perfil-usuario {
+  background: transparent;
+  border: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 12px;
+  font-family: inherit;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button.perfil-usuario:hover {
+  background-color: #f8fafc;
 }
 
 .avatar {
