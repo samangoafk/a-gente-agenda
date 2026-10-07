@@ -13,25 +13,27 @@ export class AuthService {
       id: 1,
       nome: 'Adam Castro',
       login: 'adam67@gmail.com',
-      senha: '12345'
+      senha: '12345',
+      perfil: 'Professor'
     },
     {
       id: 2,
       nome: 'Yuri Marques',
       login: 'yuriaura@gmail.com',
       senha: 'aura67',
+      perfil: 'Coordenador'
     },
     {
       id: 3,
       nome: 'Matheus Dias',
       login: 'matheusresende@gmail.com',
       senha: 'aura67',
-    },
+      perfil: 'Professor'
+    }
   ];
 
   private usuarioLogado: Usuario | null = null;
 
-  // Helper para verificar se o código está executando no navegador
   private get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -82,5 +84,16 @@ export class AuthService {
     }
 
     return null;
+  }
+
+  obterIniciais(): string {
+    const usuario = this.obterUsuarioLogado();
+    if (!usuario || !usuario.nome) return 'US';
+
+    const partes = usuario.nome.trim().split(' ');
+    if (partes.length >= 2) {
+      return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+    }
+    return usuario.nome.substring(0, 2).toUpperCase();
   }
 }
