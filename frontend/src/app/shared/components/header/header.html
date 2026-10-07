@@ -1,6 +1,7 @@
 <header class="header-principal">
   <div class="header-container">
-    <!-- Logo placeholder -->
+    
+    <!-- Logo -->
     <div class="header-brand" routerLink="/salas">
       <div class="icone-marca">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -13,24 +14,64 @@
 
     <!-- Links de Navegação -->
     <nav class="navegacao-central">
-      <a routerLink="/salas" class="link-nav ativo">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <a routerLink="/salas" routerLinkActive="ativo" class="link-nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
         Salas
       </a>
-      <a routerLink="/meus-agendamentos" class="link-nav">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+
+      <!-- Link exclusivo para Professores -->
+      <a 
+        *ngIf="usuario?.perfil === 'Professor'"
+        routerLink="/meus-agendamentos" 
+        routerLinkActive="ativo" 
+        class="link-nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
         Meus agendamentos
+      </a>
+
+      <!-- Link exclusivo para Coordenador -->
+      <a 
+        *ngIf="usuario?.perfil === 'Coordenador'"
+        routerLink="/coordenador" 
+        routerLinkActive="ativo" 
+        class="link-nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+        </svg>
+        Painel Coordenador
       </a>
     </nav>
 
-    <!-- Perfil placeholder tambem-->
-    <div class="perfil-usuario">
-      <div class="avatar">MS</div>
+    <!-- Botão Interativo do Perfil -->
+    <button type="button" class="perfil-usuario" (click)="abrirPopUpPerfil()">
+      <div class="avatar">{{ iniciais }}</div>
       <div class="info-usuario">
-        <span class="nome">Marina Silva</span>
-        <span class="cargo">Professora</span>
+        <span class="nome">{{ usuario?.nome || 'Usuário' }}</span>
+        <span class="cargo">{{ usuario?.perfil || 'Perfil' }}</span>
       </div>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+
   </div>
 </header>
+
+<!-- Pop-up de Perfil -->
+<app-pop-up-perfil
+  [exibe]="exibirPopUpPerfil"
+  [usuario]="usuario"
+  [iniciais]="iniciais"
+  (fechar)="fecharPopUpPerfil()"
+  (verPerfil)="verPerfil()"
+  (logout)="logout()">
+</app-pop-up-perfil>
