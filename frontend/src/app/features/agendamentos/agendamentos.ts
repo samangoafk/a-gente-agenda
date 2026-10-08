@@ -94,7 +94,7 @@ export class Agendamentos implements OnInit {
 
   confirmarAgendamento(): void {
     if (this.horarioSelecionado) {
-      alert(`Agendamento confirmado para ${this.dataCurtaFormatada} das ${this.horarioSelecionado.inicio} às ${this.horarioSelecionado.fim}!`);
+      alert(`Solicitação de Agendamento para ${this.dataCurtaFormatada} das ${this.horarioSelecionado.inicio} às ${this.horarioSelecionado.fim} confirmada! Você será informado quando o agendamento for aprovado pelo Coordenador.`);
       this.router.navigate(['/salas']);
     }
   }
