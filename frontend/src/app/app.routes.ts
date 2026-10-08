@@ -31,6 +31,14 @@ export const routes: Routes = [
         .then(m => m.Agendamentos)
   },
 
+   {
+    path: 'meus-agendamentos',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/meus-agendamentos/meus-agendamentos')
+        .then(m => m.MeusAgendamentos)
+  },
+
   {
     path: '**',
     redirectTo: 'login'
