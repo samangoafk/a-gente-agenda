@@ -1,4 +1,4 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID, signal, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Usuario } from '../../models/usuarios.model';
 
@@ -8,13 +8,20 @@ import { Usuario } from '../../models/usuarios.model';
 export class AuthService {
   private platformId = inject(PLATFORM_ID);
 
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  // Lista mockada com matéria e perfis configurados
   private usuarios: Usuario[] = [
     {
       id: 1,
       nome: 'Adam Castro',
       login: 'adam67@gmail.com',
       senha: '12345',
-      perfil: 'Professor'
+      perfil: 'Professor',
+      materia: 'Design de Interfaces',
+      solicitacoesPendentes: 2
     },
     {
       id: 2,
@@ -28,14 +35,42 @@ export class AuthService {
       nome: 'Matheus Dias',
       login: 'matheusresende@gmail.com',
       senha: 'aura67',
-      perfil: 'Professor'
+      perfil: 'Professor',
+      materia: 'Desenvolvimento de Software',
+      solicitacoesPendentes: 0
     }
   ];
 
-  private usuarioLogado: Usuario | null = null;
+  // Signal reativo para o estado do usuário logado
+  usuarioLogado = signal<Usuario | null>(this.obterUsuarioInicial());
 
-  private get isBrowser(): boolean {
-    return isPlatformBrowser(this.platformId);
+  // Signal computado para verificação de autenticação
+  estaAutenticado = computed(() => this.usuarioLogado() !== null);
+
+  // Signal computado que gera as iniciais do avatar de maneira "dinâmica"
+  iniciais = computed(() => {
+    const usuario = this.usuarioLogado();
+    if (!usuario || !usuario.nome) return 'US';
+
+    const partes = usuario.nome.trim().split(' ');
+    if (partes.length >= 2) {
+      return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+    }
+    return usuario.nome.substring(0, 2).toUpperCase();
+  });
+
+  private obterUsuarioInicial(): Usuario | null {
+    if (this.isBrowser) {
+      const usuarioStorage = localStorage.getItem('usuarioLogado');
+      if (usuarioStorage) {
+        try {
+          return JSON.parse(usuarioStorage);
+        } catch {
+          return null;
+        }
+      }
+    }
+    return null;
   }
 
   login(login: string, senha: string): boolean {
@@ -47,7 +82,7 @@ export class AuthService {
       return false;
     }
 
-    this.usuarioLogado = usuario;
+    this.usuarioLogado.set(usuario);
 
     if (this.isBrowser) {
       localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
@@ -57,43 +92,18 @@ export class AuthService {
   }
 
   logout(): void {
-    this.usuarioLogado = null;
+    this.usuarioLogado.set(null);
     if (this.isBrowser) {
       localStorage.removeItem('usuarioLogado');
     }
   }
 
-  estaAutenticado(): boolean {
-    if (this.isBrowser) {
-      return localStorage.getItem('usuarioLogado') !== null;
-    }
-    return false;
-  }
-
+  // Métodos utilitários para compatibilidade sem alterar a API publics
   obterUsuarioLogado(): Usuario | null {
-    if (this.usuarioLogado) {
-      return this.usuarioLogado;
-    }
-
-    if (this.isBrowser) {
-      const usuarioStorage = localStorage.getItem('usuarioLogado');
-      if (usuarioStorage) {
-        this.usuarioLogado = JSON.parse(usuarioStorage);
-        return this.usuarioLogado;
-      }
-    }
-
-    return null;
+    return this.usuarioLogado();
   }
 
   obterIniciais(): string {
-    const usuario = this.obterUsuarioLogado();
-    if (!usuario || !usuario.nome) return 'US';
-
-    const partes = usuario.nome.trim().split(' ');
-    if (partes.length >= 2) {
-      return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
-    }
-    return usuario.nome.substring(0, 2).toUpperCase();
+    return this.iniciais();
   }
 }
