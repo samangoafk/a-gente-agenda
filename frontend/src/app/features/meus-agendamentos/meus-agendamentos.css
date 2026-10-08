@@ -1,0 +1,176 @@
+.pagina-agendamentos {
+  background-color: #dcdcd8;
+  min-height: calc(100vh - 70px);
+  padding: 3rem 1.5rem;
+  font-family: inherit;
+}
+
+.container-agendamentos {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho da Secção */
+.header-secao {
+  margin-bottom: 2.5rem;
+}
+
+.tag-secao {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00a884;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.titulo-secao {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitulo-secao {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Lista de Cards */
+.lista-agendamentos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Card Sóbrio estilo Figma */
+.card-agendamento {
+  background-color: #e5e5e1;
+  border: 1px solid #d0d0cc;
+  border-radius: 20px;
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-agendamento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Badge de Data Teal/Verde */
+.badge-data {
+  background-color: #a7e2d3;
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badge-data .dia {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #007a5e;
+  line-height: 1;
+}
+
+.badge-data .mes {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #007a5e;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Conteúdo Central */
+.conteudo-card {
+  flex: 1;
+}
+
+.tipo-sala {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #82827e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.nome-sala {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.6rem 0;
+}
+
+.detalhes-agendamento {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.item-detalhe {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #61615d;
+  font-weight: 500;
+}
+
+.item-detalhe svg {
+  color: #71716d;
+}
+
+/* Status do Agendamento */
+.status-container {
+  flex-shrink: 0;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-confirmado {
+  background-color: #a7e2d3;
+  color: #007a5e;
+}
+
+/* Estado Vazio */
+.estado-vazio {
+  background-color: #e5e5e1;
+  border: 1px dashed #c4c4bf;
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.btn-ir-salas {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #00a884;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}

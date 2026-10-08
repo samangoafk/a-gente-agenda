@@ -1,0 +1,83 @@
+<app-header></app-header>
+
+<main class="pagina-agendamentos">
+  <div class="container-agendamentos">
+    
+    <!-- Cabeçalho da Ecrã -->
+    <header class="header-secao">
+      <span class="tag-secao">SUA AGENDA</span>
+      <h1 class="titulo-secao">Meus agendamentos</h1>
+      <p class="subtitulo-secao">Acompanhe suas próximas aulas e reservas confirmadas.</p>
+    </header>
+
+    <!-- Lista de Cards de Agendamento -->
+    <div class="lista-agendamentos" *ngIf="agendamentos().length > 0; else semAgendamentos">
+      <div class="card-agendamento" *ngFor="let item of agendamentos()">
+        
+        <!-- Bloco da Data (Badge Esquerdo) -->
+        <div class="badge-data">
+          <span class="dia">{{ item.dia }}</span>
+          <span class="mes">{{ item.mes }}</span>
+        </div>
+
+        <!-- Conteúdo do Agendamento -->
+        <div class="conteudo-card">
+          <span class="tipo-sala">{{ item.tipo || 'LABORATÓRIO' }}</span>
+          <h2 class="nome-sala">{{ item.salaNome }}</h2>
+
+          <div class="detalhes-agendamento">
+            <!-- Ícone Calendário -->
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              {{ item.dataFormatada }}
+            </span>
+
+            <!-- Ícone Relógio -->
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              {{ item.horario }}
+            </span>
+
+            <!-- Ícone Matéria/Disciplina -->
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+              {{ item.materia }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Badge de Status (Direito) -->
+        <div class="status-container">
+          <span class="badge-status status-confirmado">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            {{ item.status }}
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Estado Vazio (Caso não haja agendamentos) -->
+    <ng-template #semAgendamentos>
+      <div class="estado-vazio">
+        <p>Você ainda não possui agendamentos confirmados.</p>
+        <a routerLink="/salas" class="btn-ir-salas">Reservar uma sala</a>
+      </div>
+    </ng-template>
+
+  </div>
+</main>
