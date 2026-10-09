@@ -1,0 +1,173 @@
+<div class="pagina-coordenador">
+  <app-header></app-header>
+
+  <main class="conteudo-coordenador">
+
+    <!-- Topo -->
+    <div class="topo-boas-vindas">
+      <span class="data-hoje">{{ dataHoje }}</span>
+      <h1>
+        Painel do coordenador
+        <span class="texto-suave">Olá, {{ nomeUsuario() }}. Aprove ou recuse as reservas da equipe.</span>
+      </h1>
+    </div>
+
+    <!-- Resumo -->
+    <section class="grade-resumo" aria-label="Resumo das reservas">
+      <div class="card-resumo destaque">
+        <div class="icone-resumo pendente">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="info-resumo">
+          <span class="valor">{{ totalPendentes() }}</span>
+          <span class="rotulo">Aguardando aprovação</span>
+        </div>
+      </div>
+
+      <div class="card-resumo">
+        <div class="icone-resumo confirmado">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="info-resumo">
+          <span class="valor">{{ totalConfirmados() }}</span>
+          <span class="rotulo">Confirmadas</span>
+        </div>
+      </div>
+
+      <div class="card-resumo">
+        <div class="icone-resumo cancelado">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+        <div class="info-resumo">
+          <span class="valor">{{ totalCancelados() }}</span>
+          <span class="rotulo">Recusadas ou canceladas</span>
+        </div>
+      </div>
+
+      <div class="card-resumo">
+        <div class="icone-resumo neutro">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18"></path>
+          </svg>
+        </div>
+        <div class="info-resumo">
+          <span class="valor">{{ total() }}</span>
+          <span class="rotulo">Total de reservas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cabeçalho da lista + filtros -->
+    <div class="cabecalho-lista">
+      <div>
+        <h2>Solicitações de reserva</h2>
+        <p>Revise os pedidos dos professores e decida o que fazer com cada um.</p>
+      </div>
+
+      <div class="controles-lista">
+        <label class="campo-busca">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            placeholder="Buscar professor, sala ou matéria"
+            [value]="busca()"
+            (input)="atualizarBusca($event)" />
+        </label>
+
+        <div class="botoes-categoria">
+          <button
+            *ngFor="let filtro of filtros"
+            type="button"
+            class="btn-categoria"
+            [class.ativo]="filtroAtual() === filtro"
+            (click)="alterarFiltro(filtro)">
+            {{ filtro === 'Todos' ? 'Todas' : filtro + 's' }}
+            <span class="contador">{{ contagem(filtro) }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista -->
+    <div class="lista-solicitacoes" *ngIf="agendamentosFiltrados().length > 0; else semResultados">
+      <article class="card-solicitacao" *ngFor="let item of agendamentosFiltrados()">
+
+        <div class="badge-data">
+          <span class="dia">{{ item.dia }}</span>
+          <span class="mes">{{ item.mes }}</span>
+        </div>
+
+        <div class="conteudo-card">
+          <span class="tipo-sala">{{ item.tipo || 'Ambiente' }}</span>
+          <h3 class="nome-sala">{{ item.salaNome }}</h3>
+
+          <div class="detalhes-agendamento">
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              {{ item.professorNome }}
+            </span>
+
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              {{ item.horario }}
+            </span>
+
+            <span class="item-detalhe">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+              {{ item.materia }}
+            </span>
+          </div>
+        </div>
+
+        <div class="acoes-container">
+          <ng-container *ngIf="item.status === 'Pendente'; else statusFinal">
+            <button type="button" class="btn-acao recusar" (click)="recusar(item)">Recusar</button>
+            <button type="button" class="btn-acao aprovar" (click)="aprovar(item)">Aprovar</button>
+          </ng-container>
+
+          <ng-template #statusFinal>
+            <span class="badge-status" [ngClass]="classeStatus(item.status)">
+              <span class="ponto"></span>
+              {{ item.status }}
+            </span>
+          </ng-template>
+        </div>
+
+      </article>
+    </div>
+
+    <ng-template #semResultados>
+      <div class="estado-vazio">
+        <p *ngIf="filtroAtual() === 'Pendente' && !busca(); else vazioGenerico">
+          Nenhuma solicitação aguardando aprovação.
+        </p>
+        <ng-template #vazioGenerico>
+          <p>Nenhuma reserva encontrada com esses filtros.</p>
+        </ng-template>
+      </div>
+    </ng-template>
+
+  </main>
+</div>
