@@ -32,6 +32,9 @@ export class SalasService {
     return this.agendamentosSignal().filter(a => a.professorId === usuario.id);
   });
 
+  //Todos agendamentos visão do coodernador
+  todosAgendamentos = this.agendamentosSignal.asReadonly();
+
   adicionarAgendamento(novoAgendamento: Omit<Agendamento, 'id'>): void {
     const agendamentoCompleto: Agendamento = {
       ...novoAgendamento,
@@ -40,4 +43,11 @@ export class SalasService {
 
     this.agendamentosSignal.update(lista => [agendamentoCompleto, ...lista]);
   }
+  atualizarStatus(id: number, status: 'Confirmado' | 'Pendente' | 'Cancelado'): void {
+  this.agendamentosSignal.update((lista: Agendamento[]) =>
+    lista.map((a: Agendamento): Agendamento =>
+      a.id === id ? { ...a, status } : a
+    )
+  );
+}
 }
