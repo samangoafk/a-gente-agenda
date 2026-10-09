@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { coordenadorGuard } from './core/guards/coordenador.guard';
+
 // import { Salas } from './features/salas/salas';
 // import { Agendamentos } from './features/agendamentos/agendamentos'; 
 
@@ -33,12 +35,19 @@ export const routes: Routes = [
 
    {
     path: 'meus-agendamentos',
-    canActivate: [authGuard],
+    canActivate: [authGuard, coordenadorGuard],
     loadComponent: () =>
       import('./features/meus-agendamentos/meus-agendamentos')
         .then(m => m.MeusAgendamentos)
   },
-
+  {
+    path: 'coordenador',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/coordenador/coordenador')
+    .then( m => m.Coordenador)
+  }
+,
   {
     path: '**',
     redirectTo: 'login'
