@@ -38,8 +38,9 @@
       </a>
 
       <!-- Link exclusivo para Coordenador -->
+       @if (usuario?.perfil === 'Coordenador'){
       <a 
-        *ngIf="usuario?.perfil === 'Coordenador'"
+        
         routerLink="/coordenador" 
         routerLinkActive="ativo" 
         class="link-nav">
@@ -49,6 +50,7 @@
         </svg>
         Painel Coordenador
       </a>
+    }
     </nav>
 
     <!-- Botão Interativo do Perfil -->
