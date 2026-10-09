@@ -26,12 +26,19 @@ export class Agendamentos implements OnInit {
   salaId: number | null = null;
   salaNome: string = 'Laboratório de Informática 01';
 
-  // Variáveis para armazenar as datas dinâmicas
   dataSelecionada: Date = new Date();
   dataLargaFormatada: string = '';
   dataCurtaFormatada: string = '';
 
-  materias: string[] = ['Desenvolvimento Web', 'Algoritmos e Estrutura de Dados', 'Banco de Dados', 'Redes de Computadores'];
+  // Controle de exibição do modal customizado
+  mostrarModalSucesso: boolean = false;
+
+  materias: string[] = [
+    'Desenvolvimento Web',
+    'Algoritmos e Estrutura de Dados',
+    'Banco de Dados',
+    'Redes de Computadores'
+  ];
   materiaSelecionada: string = this.materias[0];
 
   horarios: SlotHorario[] = [
@@ -45,38 +52,31 @@ export class Agendamentos implements OnInit {
   horarioSelecionado: SlotHorario | null = null;
 
   ngOnInit(): void {
-    // 1. Obtém o ID da sala da URL (/agendamentos/:id)
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.salaId = Number(idParam);
     }
 
-    // 2. Obtém a data enviada pela queryParam (?data=YYYY-MM-DD)
     const dataQuery = this.route.snapshot.queryParamMap.get('data');
     if (dataQuery) {
-      // Ajusta para considerar a data local sem desvio de fuso horário
       const partes = dataQuery.split('-');
       if (partes.length === 3) {
         this.dataSelecionada = new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
       }
     }
 
-    // 3. Formata as datas para exibição
     this.formatarDatas();
   }
 
   private formatarDatas(): void {
-    // Exemplo: "Segunda-feira, 26 de maio de 2025"
     const dataLarga = this.dataSelecionada.toLocaleDateString('pt-BR', {
       weekday: 'long',
       day: '2-digit',
       month: 'long',
       year: 'numeric'
     });
-    // Capitaliza a primeira letra do dia da semana
     this.dataLargaFormatada = dataLarga.charAt(0).toUpperCase() + dataLarga.slice(1);
 
-    // Exemplo: "26 de maio"
     this.dataCurtaFormatada = this.dataSelecionada.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long'
@@ -92,10 +92,16 @@ export class Agendamentos implements OnInit {
     this.router.navigate(['/salas']);
   }
 
+  // Aciona o modal em vez de usar alert()
   confirmarAgendamento(): void {
     if (this.horarioSelecionado) {
-      alert(`Solicitação de Agendamento para ${this.dataCurtaFormatada} das ${this.horarioSelecionado.inicio} às ${this.horarioSelecionado.fim} confirmada! Você será informado quando o agendamento for aprovado pelo Coordenador.`);
-      this.router.navigate(['/salas']);
+      this.mostrarModalSucesso = true;
     }
+  }
+
+  // Fecha o modal e redireciona de volta para /salas
+  fecharEVoltar(): void {
+    this.mostrarModalSucesso = false;
+    this.router.navigate(['/salas']);
   }
 }
