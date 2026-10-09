@@ -174,3 +174,12 @@
   font-weight: 600;
   font-size: 0.9rem;
 }
+.status-pendente {
+  background-color: #ffedd5;
+  color: #ea580c;
+}
+
+.status-cancelado {
+  background-color: #fee2e2;
+  color: #dc2626;
+}

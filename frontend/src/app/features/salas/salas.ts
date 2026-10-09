@@ -237,15 +237,15 @@ export class Salas implements OnInit, OnDestroy {
   }
 
   confirmarReservaModal() {
-    this.exibirModal = false;
-    if (this.salaSelecionadaId) {
-      const dataIso = this.dataReservaSelecionada.toISOString().split('T')[0];
-      // Redireciona para a tela de agendamentos passando o ID da sala e a data selecionada
-      this.router.navigate(['/agendamentos', this.salaSelecionadaId], {
-        queryParams: { data: dataIso }
-      });
-    }
+  this.exibirModal = false;
+  if (this.salaSelecionadaId) {
+    const sala = this.listaSalas.find(s => s.id === this.salaSelecionadaId);
+    const dataIso = this.dataReservaSelecionada.toISOString().split('T')[0];
+    this.router.navigate(['/agendamentos', this.salaSelecionadaId], {
+      queryParams: { data: dataIso, nome: sala?.nome, tipo: sala?.tipo }
+    });
   }
+}
 
   alterarDataModal() {
     this.exibirModal = false;
