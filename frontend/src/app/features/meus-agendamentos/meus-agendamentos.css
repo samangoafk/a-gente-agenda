@@ -1,5 +1,5 @@
 .pagina-agendamentos {
-  background-color: #dcdcd8;
+  background-color: #F8FAFC;
   min-height: calc(100vh - 70px);
   padding: 3rem 1.5rem;
   font-family: inherit;
@@ -48,7 +48,7 @@
 
 /* Card Sóbrio estilo Figma */
 .card-agendamento {
-  background-color: #e5e5e1;
+  background-color: #FFFFFF;
   border: 1px solid #d0d0cc;
   border-radius: 20px;
   padding: 1.25rem 1.75rem;
