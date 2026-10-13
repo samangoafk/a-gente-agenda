@@ -35,14 +35,14 @@ export const routes: Routes = [
 
    {
     path: 'meus-agendamentos',
-    canActivate: [authGuard, coordenadorGuard],
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/meus-agendamentos/meus-agendamentos')
         .then(m => m.MeusAgendamentos)
   },
   {
     path: 'coordenador',
-    canActivate: [authGuard],
+    canActivate: [authGuard, coordenadorGuard],
     loadComponent: () =>
       import('./features/coordenador/coordenador')
     .then( m => m.Coordenador)
