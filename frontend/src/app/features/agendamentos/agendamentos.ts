@@ -102,54 +102,38 @@ export class Agendamentos implements OnInit {
     this.router.navigate(['/salas']);
   }
 
-  // Aciona o modal em vez de usar alert()
-  
   confirmarAgendamento(): void {
-    if (this.horarioSelecionado) {
-      this.mostrarModalSucesso = true;
-    }
-  const usuario = this.authService.usuarioLogado();
-  if (!this.horarioSelecionado || !usuario || this.salaId === null) return;
+    const usuario = this.authService.usuarioLogado();
+    if (!this.horarioSelecionado || !usuario || this.salaId === null) return;
 
-  const d = this.dataSelecionada;
-  const ano = d.getFullYear();
-  const mesNum = String(d.getMonth() + 1).padStart(2, '0');
-  const diaNum = String(d.getDate()).padStart(2, '0');
-  const horario = `${this.horarioSelecionado.inicio} — ${this.horarioSelecionado.fim}`;
+    const d = this.dataSelecionada;
+    const ano = d.getFullYear();
+    const mesNum = String(d.getMonth() + 1).padStart(2, '0');
+    const diaNum = String(d.getDate()).padStart(2, '0');
+    const horario = `${this.horarioSelecionado.inicio} — ${this.horarioSelecionado.fim}`;
 
-  // Evita pedir um horário que já tem solicitação ativa
-  const conflito = this.salasService.todosAgendamentos().some(a =>
-    a.salaId === this.salaId &&
-    a.data === `${ano}-${mesNum}-${diaNum}` &&
-    a.horario === horario &&
-    a.status !== 'Cancelado'
-  );
-  if (conflito) {
-    alert('Já existe uma solicitação para esse horário. Escolha outro.');
-    return;
+    // Adiciona a solicitação no serviço independentemente de já haver outras pendentes
+    this.salasService.adicionarAgendamento({
+      salaId: this.salaId,
+      salaNome: this.salaNome,
+      tipo: this.salaTipo.toUpperCase(),
+      professorId: usuario.id,
+      professorNome: usuario.nome,
+      materia: this.materiaSelecionada,
+      data: `${ano}-${mesNum}-${diaNum}`,
+      dataFormatada: d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      dia: diaNum,
+      mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
+      horario,
+      status: 'Pendente'
+    });
+
+    // Dispara sempre o modal customizado de confirmação
+    this.mostrarModalSucesso = true;
   }
 
-  this.salasService.adicionarAgendamento({
-    salaId: this.salaId,
-    salaNome: this.salaNome,
-    tipo: this.salaTipo.toUpperCase(),
-    professorId: usuario.id,
-    professorNome: usuario.nome,
-    materia: this.materiaSelecionada,
-    data: `${ano}-${mesNum}-${diaNum}`,
-    dataFormatada: d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
-    dia: diaNum,
-    mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
-    horario,
-    status: 'Pendente'
-  });
-
-  this.router.navigate(['/meus-agendamentos']);
-}
-
-  // Fecha o modal e redireciona de volta para /salas
   fecharEVoltar(): void {
     this.mostrarModalSucesso = false;
-    this.router.navigate(['/salas']);
+    this.router.navigate(['/meus-agendamentos']);
   }
 }
