@@ -19,20 +19,29 @@
       </p>
 
       <form class="formulario-login" (ngSubmit)="entrar()" [formGroup]="formulario">
+        
+        <!-- Mensagem de erro geral de autenticação -->
+        @if (erroLogin()) {
+          <div class="alerta-erro-geral">
+            E-mail ou senha incorretos.
+          </div>
+        }
+
         <div class="grupo-campo">
           <label for="email">E-mail institucional</label>
-          <input type ="email" formControlName="email" 
-           type="text"
-           name="usuario"
-           [(ngModel)]="login"
-           placeholder="E-mail"
+          <input 
+            id="email"
+            type="email" 
+            formControlName="email" 
+            placeholder="E-mail"
+            [class.input-invalido]="(formulario.get('email')?.touched && formulario.get('email')?.invalid) || erroLogin()"
           />
           @if (formulario.get('email')?.touched && formulario.get('email')?.invalid){
             @if (formulario.get('email')?.errors?.['required']){
               <small>Campo em branco</small>
             }
             @if (formulario.get('email')?.errors?.['email']){
-              <small>Usuário Inválido</small>
+              <small>E-mail inválido</small>
             }
           }
         </div>
@@ -41,11 +50,12 @@
           <div class="linha-rotulo">
             <label for="senha">Senha</label>
           </div>
-          <input type="password" formControlName="senha"
-            type="password"
-            name="senha"
-            [(ngModel)]="senha"
+          <input 
+            id="senha"
+            type="password" 
+            formControlName="senha"
             placeholder="Senha"
+            [class.input-invalido]="(formulario.get('senha')?.touched && formulario.get('senha')?.invalid) || erroLogin()"
           />
           @if (formulario.get('senha')?.touched && formulario.get('senha')?.invalid){
             @if (formulario.get('senha')?.errors?.['required']){
@@ -69,7 +79,7 @@
     </footer>
   </aside>
 
-  <!-- Painel Direito Claro / O Mais Maneiro -->
+  <!-- Painel Direito Claro -->
   <main class="apresentacao-visual">
     <div class="circulo-fundo"></div>
 
@@ -82,7 +92,6 @@
 
       <!-- Elementos Gráficos -->
       <div class="area-grafica">
-        <!-- Calendalrio Insano mockup -->
         <div class="cartao-calendario">
           <div class="cabecalho-pontos">
             <span></span><span></span><span></span>
@@ -100,14 +109,12 @@
           </div>
         </div>
 
-        <!-- verificado flutuante de Confirmação -->
         <div class="badge-confirmacao-flutuante">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
 
-        <!-- aqui vai o card flutuante de reserva -->
         <div class="cartao-reserva-flutuante">
           <div class="icone-reserva">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
