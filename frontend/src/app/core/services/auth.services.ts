@@ -17,7 +17,7 @@ export class AuthService {
     {
       id: 1,
       nome: 'Adam Castro',
-      login: 'adam69@gmail.com',
+      login: 'adam@gmail.com',
       senha: '12345',
       perfil: 'Professor',
       materia: 'Design de Interfaces',
@@ -26,14 +26,14 @@ export class AuthService {
     {
       id: 2,
       nome: 'Yuri Marques',
-      login: 'yuri67@gmail.com',
+      login: 'yuri@gmail.com',
       senha: '12345',
       perfil: 'Coordenador'
     },
     {
       id: 3,
       nome: 'Matheus Dias',
-      login: 'matheusbut@gmail.com',
+      login: 'matheus@gmail.com',
       senha: '12345',
       perfil: 'Professor',
       materia: 'Desenvolvimento de Software',
