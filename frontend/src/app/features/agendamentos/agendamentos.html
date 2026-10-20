@@ -30,14 +30,16 @@
       <section class="painel-horarios">
         
         <div class="campo-grupo">
-          <label for="materia">Matéria que ministra</label>
-          <div class="select-container">
-            <select id="materia" [(ngModel)]="materiaSelecionada">
-              <option *ngFor="let m of materias" [value]="m">{{ m }}</option>
-            </select>
-            <svg class="seta-select" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
+          <span class="rotulo-campo">Matéria que ministra</span>
+          <div class="materia-fixa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a884" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
             </svg>
+            <span class="materia-nome" [class.sem-materia]="!materia">
+              {{ materia || 'Matéria não cadastrada no seu perfil' }}
+            </span>
+            <span class="selo-perfil" *ngIf="materia">Vinculada ao seu perfil</span>
           </div>
         </div>
 
@@ -111,6 +113,11 @@
             <span class="valor">{{ dataCurtaFormatada }}</span>
           </div>
 
+          <div class="linha-resumo" *ngIf="materia">
+            <span class="rotulo">Matéria</span>
+            <span class="valor">{{ materia }}</span>
+          </div>
+
           <div class="linha-resumo" *ngIf="horarioSelecionado">
             <span class="rotulo">Horário</span>
             <span class="valor valor-destaque">{{ horarioSelecionado.inicio }} — {{ horarioSelecionado.fim }}</span>
@@ -120,7 +127,7 @@
         <button 
           type="button" 
           class="btn-confirmar" 
-          [disabled]="!horarioSelecionado"
+          [disabled]="!horarioSelecionado || !materia"
           (click)="confirmarAgendamento()">
           Confirmar agendamento
         </button>

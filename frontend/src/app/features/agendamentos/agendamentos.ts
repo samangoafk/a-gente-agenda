@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
 import { SalasService } from '../../core/services/salas.services';
@@ -17,7 +16,7 @@ interface SlotHorario {
 @Component({
   selector: 'app-agendamentos',
   standalone: true,
-  imports: [CommonModule, FormsModule, Header],
+  imports: [CommonModule, Header],
   templateUrl: './agendamentos.html',
   styleUrl: './agendamentos.css'
 })
@@ -38,13 +37,8 @@ export class Agendamentos implements OnInit {
   // Controle de exibição do modal customizado
   mostrarModalSucesso: boolean = false;
 
-  materias: string[] = [
-    'Desenvolvimento Web',
-    'Algoritmos e Estrutura de Dados',
-    'Banco de Dados',
-    'Redes de Computadores'
-  ];
-  materiaSelecionada: string = this.materias[0];
+  // Matéria vem do perfil do professor logado (não é mais selecionável)
+  materia: string = '';
 
   horarios: SlotHorario[] = [
     { inicio: '07:30', fim: '09:10', livre: true },
@@ -57,6 +51,8 @@ export class Agendamentos implements OnInit {
   horarioSelecionado: SlotHorario | null = null;
 
   ngOnInit(): void {
+    this.materia = this.authService.usuarioLogado()?.materia ?? '';
+
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.salaId = Number(idParam);
@@ -104,7 +100,7 @@ export class Agendamentos implements OnInit {
 
   confirmarAgendamento(): void {
     const usuario = this.authService.usuarioLogado();
-    if (!this.horarioSelecionado || !usuario || this.salaId === null) return;
+    if (!this.horarioSelecionado || !usuario || this.salaId === null || !this.materia) return;
 
     const d = this.dataSelecionada;
     const ano = d.getFullYear();
@@ -119,7 +115,7 @@ export class Agendamentos implements OnInit {
       tipo: this.salaTipo.toUpperCase(),
       professorId: usuario.id,
       professorNome: usuario.nome,
-      materia: this.materiaSelecionada,
+      materia: this.materia,
       data: `${ano}-${mesNum}-${diaNum}`,
       dataFormatada: d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
       dia: diaNum,
