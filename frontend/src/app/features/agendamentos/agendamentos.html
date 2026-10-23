@@ -131,6 +131,34 @@
           (click)="confirmarAgendamento()">
           Confirmar agendamento
         </button>
+
+        <!-- Menu de descrição (enviada ao coordenador) -->
+        <div class="menu-descricao">
+          <button
+            type="button"
+            class="menu-descricao-toggle"
+            [class.aberto]="descricaoAberta"
+            [attr.aria-expanded]="descricaoAberta"
+            (click)="alternarDescricao()">
+            <span>
+              Descrição para o coordenador
+              <em>(opcional)</em>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <div class="menu-descricao-corpo" *ngIf="descricaoAberta">
+            <textarea
+              rows="4"
+              [attr.maxlength]="limiteDescricao"
+              [value]="descricao"
+              (input)="atualizarDescricao($event)"
+              placeholder="Ex.: Preciso do laboratório para uma prova prática com a turma toda."></textarea>
+            <span class="contador-descricao">{{ descricao.length }}/{{ limiteDescricao }}</span>
+          </div>
+        </div>
       </aside>
 
     </div>
@@ -151,7 +179,7 @@
     
     <p class="modal-mensagem">
       Solicitação de agendamento para <strong>{{ dataCurtaFormatada }}</strong> das 
-      <strong>{{ horarioSelecionado?.inicio }} às {{ horarioSelecionado?.fim }}</strong> confirmada!
+      <strong>{{ horarioSelecionado?.inicio }} às {{ horarioSelecionado?.fim }}</strong> enviada ao Coordenador!
       <br><br>
       Você será informado quando o agendamento for aprovado pelo Coordenador.
     </p>

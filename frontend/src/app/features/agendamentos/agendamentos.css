@@ -451,3 +451,86 @@
   padding: 3px 10px;
   white-space: nowrap;
 }
+
+/* Menu de descrição para o coordenador */
+.menu-descricao {
+  margin-top: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.menu-descricao-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu-descricao-toggle em {
+  font-style: normal;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.menu-descricao-toggle svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.menu-descricao-toggle.aberto svg {
+  transform: rotate(180deg);
+}
+
+.menu-descricao-toggle:hover {
+  background-color: #f8fafc;
+}
+
+.menu-descricao-toggle:focus-visible {
+  outline: 2px solid #00a884;
+  outline-offset: -2px;
+}
+
+.menu-descricao-corpo {
+  padding: 0 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-descricao-corpo textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 90px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.menu-descricao-corpo textarea:focus {
+  outline: none;
+  border-color: #00a884;
+  box-shadow: 0 0 0 3px #e6f7f3;
+}
+
+.contador-descricao {
+  align-self: flex-end;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}

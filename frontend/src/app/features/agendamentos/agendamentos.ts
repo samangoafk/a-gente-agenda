@@ -40,6 +40,11 @@ export class Agendamentos implements OnInit {
   // Matéria vem do perfil do professor logado (não é mais selecionável)
   materia: string = '';
 
+  // Menu de descrição que é enviada ao coordenador junto com a solicitação
+  descricaoAberta: boolean = false;
+  descricao: string = '';
+  readonly limiteDescricao = 300;
+
   horarios: SlotHorario[] = [
     { inicio: '07:30', fim: '09:10', livre: true },
     { inicio: '09:20', fim: '11:00', livre: false, professor: 'Prof. Carlos', disciplina: 'Sistemas Operacionais' },
@@ -94,6 +99,14 @@ export class Agendamentos implements OnInit {
     this.horarioSelecionado = slot;
   }
 
+  alternarDescricao(): void {
+    this.descricaoAberta = !this.descricaoAberta;
+  }
+
+  atualizarDescricao(evento: Event): void {
+    this.descricao = (evento.target as HTMLTextAreaElement).value;
+  }
+
   voltar(): void {
     this.router.navigate(['/salas']);
   }
@@ -121,7 +134,8 @@ export class Agendamentos implements OnInit {
       dia: diaNum,
       mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
       horario,
-      status: 'Pendente'
+      status: 'Pendente',
+      descricao: this.descricao.trim() || undefined
     });
 
     // Dispara sempre o modal customizado de confirmação
