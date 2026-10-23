@@ -94,6 +94,7 @@
 /* Conteúdo Central */
 .conteudo-card {
   flex: 1;
+  min-width: 0; /* deixa textos longos quebrarem em vez de empurrar o card para fora */
 }
 
 .tipo-sala {
@@ -182,4 +183,209 @@
 .status-cancelado {
   background-color: #fee2e2;
   color: #dc2626;
+}
+
+/* Prévia da descrição enviada ao coordenador */
+.descricao-card {
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  background-color: #f8fafc;
+  border-left: 3px solid #00a884;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.descricao-rotulo {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #00a884;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+/* Mostra no máximo 2 linhas e quebra palavras longas (o texto completo abre em "Editar") */
+.descricao-texto {
+  margin: 0;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Status + botão de editar empilhados */
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.btn-editar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #ffffff;
+  border: 1px solid #00a884;
+  color: #00a884;
+  padding: 0.4rem 0.9rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-editar:hover {
+  background-color: #00a884;
+  color: #ffffff;
+}
+
+.btn-editar:focus-visible {
+  outline: 2px solid #00a884;
+  outline-offset: 2px;
+}
+
+/* Modal de edição */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 90%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.75rem;
+}
+
+.modal-resumo {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1.1rem;
+}
+
+.modal-resumo strong {
+  color: #0f172a;
+}
+
+.modal-rotulo {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.4rem;
+}
+
+.modal-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 110px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.modal-textarea:focus {
+  outline: none;
+  border-color: #00a884;
+  box-shadow: 0 0 0 3px #e6f7f3;
+}
+
+.modal-contador {
+  align-self: flex-end;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 0.3rem;
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.btn-modal-cancelar,
+.btn-modal-salvar {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-modal-cancelar {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+}
+
+.btn-modal-cancelar:hover {
+  background-color: #f1f5f9;
+}
+
+.btn-modal-salvar {
+  background-color: #00a884;
+  border: 1px solid #00a884;
+  color: #ffffff;
+}
+
+.btn-modal-salvar:hover {
+  background-color: #008f70;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 720px) {
+  .card-agendamento {
+    flex-wrap: wrap;
+  }
+
+  .status-container {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
 }

@@ -56,16 +56,32 @@
               {{ item.materia }}
             </span>
           </div>
+
+          <!-- Descrição enviada ao coordenador (prévia; o texto completo abre em Editar) -->
+          <div class="descricao-card" *ngIf="item.descricao">
+            <span class="descricao-rotulo">Descrição enviada</span>
+            <p class="descricao-texto">{{ item.descricao }}</p>
+          </div>
         </div>
 
         <!-- Badge de Status (Direito) -->
         <div class="status-container">
-  <span class="badge-status" [ngClass]="'status-' + item.status.toLowerCase()">
-    {{ item.status }}
-  </span>
-</div>
-        
-        
+          <span class="badge-status" [ngClass]="'status-' + item.status.toLowerCase()">
+            {{ item.status }}
+          </span>
+
+          <button
+            type="button"
+            class="btn-editar"
+            *ngIf="podeEditar(item)"
+            (click)="abrirEdicao(item)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            Editar
+          </button>
+        </div>
 
       </div>
     </div>
@@ -80,3 +96,31 @@
 
   </div>
 </main>
+
+<!-- MODAL DE EDIÇÃO -->
+<div class="modal-overlay" *ngIf="agendamentoEmEdicao() as edicao" (click)="fecharEdicao()">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="titulo-edicao" (click)="$event.stopPropagation()">
+    <h2 class="modal-titulo" id="titulo-edicao">Editar agendamento</h2>
+
+    <p class="modal-resumo">
+      <strong>{{ edicao.salaNome }}</strong><br>
+      {{ edicao.dataFormatada }} · {{ edicao.horario }}
+    </p>
+
+    <label class="modal-rotulo" for="descricao-edicao">Descrição para o coordenador</label>
+    <textarea
+      id="descricao-edicao"
+      class="modal-textarea"
+      rows="5"
+      [attr.maxlength]="limiteDescricao"
+      [value]="descricaoEdicao()"
+      (input)="atualizarDescricao($event)"
+      placeholder="Escreva uma observação para o coordenador."></textarea>
+    <span class="modal-contador">{{ descricaoEdicao().length }}/{{ limiteDescricao }}</span>
+
+    <div class="modal-acoes">
+      <button type="button" class="btn-modal-cancelar" (click)="fecharEdicao()">Cancelar</button>
+      <button type="button" class="btn-modal-salvar" (click)="salvarEdicao()">Salvar alterações</button>
+    </div>
+  </div>
+</div>
