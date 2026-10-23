@@ -380,3 +380,128 @@
     width: 100%;
   }
 }
+
+/* Indicador de descrição adicionada */
+.chip-descricao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+  padding: 0.35rem 0.8rem;
+  background-color: #e6f7f3;
+  border: 1px solid #a7e8d8;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #007a5e;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.chip-descricao:hover {
+  background-color: #d1f0e8;
+}
+
+.chip-descricao:focus-visible {
+  outline: 2px solid #00a884;
+  outline-offset: 2px;
+}
+
+.chip-acao {
+  padding-left: 0.5rem;
+  border-left: 1px solid #a7e8d8;
+  text-decoration: underline;
+}
+
+/* Popup da descrição */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #00a884;
+  letter-spacing: 0.08em;
+}
+
+.modal-titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.modal-resumo {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  overflow-wrap: anywhere;
+}
+
+/* Texto completo: quebra palavras longas e rola dentro do popup */
+.modal-texto {
+  background-color: #f8fafc;
+  border-left: 3px solid #00a884;
+  border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #334155;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.btn-modal-fechar {
+  margin-top: 1.25rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #00a884;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-modal-fechar:hover {
+  background-color: #008f70;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

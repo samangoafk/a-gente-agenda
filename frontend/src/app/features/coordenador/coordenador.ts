@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, HostListener, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../shared/components/header/header';
 import { SalasService } from '../../core/services/salas.services';
@@ -52,6 +52,18 @@ export class Coordenador {
     day: 'numeric',
     month: 'long'
   });
+
+  // Popup com a descrição completa enviada pelo professor
+  descricaoAberta = signal<Agendamento | null>(null);
+
+  abrirDescricao(item: Agendamento): void {
+    this.descricaoAberta.set(item);
+  }
+
+  @HostListener('document:keydown.escape')
+  fecharDescricao(): void {
+    this.descricaoAberta.set(null);
+  }
 
   alterarFiltro(filtro: FiltroStatus): void {
     this.filtroAtual.set(filtro);

@@ -139,6 +139,19 @@
               {{ item.materia }}
             </span>
           </div>
+
+          <!-- Indicador: a descrição é opcional, o coordenador só lê se quiser -->
+          <button
+            type="button"
+            class="chip-descricao"
+            *ngIf="item.descricao"
+            (click)="abrirDescricao(item)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Descrição adicionada
+            <span class="chip-acao">Ver</span>
+          </button>
         </div>
 
         <div class="acoes-container">
@@ -170,4 +183,20 @@
     </ng-template>
 
   </main>
+</div>
+
+<!-- POPUP: descrição completa do professor -->
+<div class="modal-overlay" *ngIf="descricaoAberta() as item" (click)="fecharDescricao()">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="titulo-descricao" (click)="$event.stopPropagation()">
+    <span class="modal-tag">DESCRIÇÃO DO PROFESSOR</span>
+    <h2 class="modal-titulo" id="titulo-descricao">{{ item.professorNome }}</h2>
+    <p class="modal-resumo">
+      {{ item.salaNome }} · {{ item.dataFormatada }} · {{ item.horario }}<br>
+      {{ item.materia }}
+    </p>
+
+    <div class="modal-texto">{{ item.descricao }}</div>
+
+    <button type="button" class="btn-modal-fechar" (click)="fecharDescricao()">Fechar</button>
+  </div>
 </div>
