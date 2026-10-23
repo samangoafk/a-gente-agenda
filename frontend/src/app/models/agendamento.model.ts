@@ -12,4 +12,5 @@ export interface Agendamento {
   mes: string;              // ex: 'MAI'
   horario: string;          // ex: '08:00 — 09:30'
   status: 'Confirmado' | 'Pendente' | 'Cancelado';
+  descricao?: string;       // mensagem do professor para o coordenador (opcional, até 300 caracteres)
 }
