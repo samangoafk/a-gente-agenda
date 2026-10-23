@@ -43,6 +43,7 @@ export class SalasService {
 
     this.agendamentosSignal.update(lista => [agendamentoCompleto, ...lista]);
   }
+
   atualizarStatus(id: number, status: 'Confirmado' | 'Pendente' | 'Cancelado'): void {
   this.agendamentosSignal.update((lista: Agendamento[]) =>
     lista.map((a: Agendamento): Agendamento =>
@@ -50,4 +51,24 @@ export class SalasService {
     )
   );
 }
+
+  // Edita a descrição de um agendamento. Só o dono pode editar, e apenas enquanto estiver pendente.
+  atualizarDescricao(id: number, descricao: string): boolean {
+    const usuario = this.authService.usuarioLogado();
+    if (!usuario) return false;
+
+    let alterado = false;
+
+    this.agendamentosSignal.update((lista: Agendamento[]) =>
+      lista.map((a: Agendamento): Agendamento => {
+        if (a.id === id && a.professorId === usuario.id && a.status === 'Pendente') {
+          alterado = true;
+          return { ...a, descricao: descricao.trim() || undefined };
+        }
+        return a;
+      })
+    );
+
+    return alterado;
+  }
 }
