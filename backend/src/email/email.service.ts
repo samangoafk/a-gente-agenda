@@ -1,44 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Resend } from 'resend';
+import { createTransport, Transporter } from 'nodemailer';
+
+export interface DadosAgendamento {
+  sala: string;
+  data: string;
+  horario: string;
+  materia?: string;
+}
 
 @Injectable()
 export class EmailService {
-  private readonly resend: Resend;
+  private readonly logger = new Logger(EmailService.name);
+  private readonly transporter: Transporter;
 
-  constructor(private readonly configService: ConfigService) {
-    const apiKey = this.configService.get<string>('RESEND_API_KEY');
-
-    if (!apiKey) {
-      throw new Error('RESEND_API_KEY não foi configurada no .env');
-    }
-
-    this.resend = new Resend(apiKey);
+  constructor(private readonly config: ConfigService) {
+    this.transporter = createTransport({
+      service: 'gmail',
+      auth: {
+        user: this.config.get<string>('MAIL_USER'),
+        pass: this.config.get<string>('MAIL_PASS'),
+      },
+    });
   }
 
-  async enviarEmail(email: string, nome: string) {
-    const { data, error } = await this.resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: [email],
-      subject: 'Bem-vindo!',
-      html: `
-        <h1>Olá, ${nome}!</h1>
-
-        <p>
-          Seja muito bem-vindo ao nosso sistema.
-        </p>
-
-        <p>
-          Estamos felizes em ter você conosco.
-        </p>
-      `,
-    });
-
-    if (error) {
-      throw new Error(error.message);
+  async enviarConfirmacaoAgendamento(para: string, dados: DadosAgendamento) {
+    try {
+      await this.transporter.sendMail({
+        from: this.config.get<string>('MAIL_FROM'),
+        to: para,
+        subject: `Reserva confirmada: ${dados.sala}`,
+        html: `
+          <h2>Reserva confirmada ✅</h2>
+          <p><strong>Sala:</strong> ${dados.sala}</p>
+          <p><strong>Data:</strong> ${dados.data}</p>
+          <p><strong>Horário:</strong> ${dados.horario}</p>
+          ${dados.materia ? `<p><strong>Matéria:</strong> ${dados.materia}</p>` : ''}
+        `,
+      });
+    } catch (err) {
+      // não derruba o agendamento se o e-mail falhar
+      this.logger.error(`Falha ao enviar e-mail para ${para}`, err as Error);
     }
-
-    return data;
   }
 }
-

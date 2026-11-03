@@ -13,9 +13,11 @@ export class EmailController {
       nome: string;
     },
   ) {
-    return this.emailService.enviarEmail(
-      body.email,
-      body.nome,
-    );
-  }
+    return this.emailService.enviarConfirmacaoAgendamento('seuemail@gmail.com', {
+  sala: 'Laboratório 1',
+  data: '04/11/2026',
+  horario: '08:00 - 10:00',
+  materia: 'Teste',
+});
+}
 }
