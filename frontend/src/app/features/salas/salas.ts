@@ -60,9 +60,9 @@ export class Salas implements OnInit, OnDestroy {
   listaSalas: Sala[] = [
     { id: 1, nome: 'Laboratório de Informática 01', tipo: 'Laboratório', capacidade: 32, status: 'livre', proximoHorario: '13:30' },
     { id: 2, nome: 'Laboratório de Informática 02', tipo: 'Laboratório', capacidade: 28, status: 'ocupado', proximoHorario: '15:30' },
-    { id: 3, nome: 'Sala de Teoria 102', tipo: 'Sala de Aula', capacidade: 40, status: 'livre', proximoHorario: '14:00' },
+    { id: 3, nome: 'Sala de Vídeo', tipo: 'Sala de Aula', capacidade: 40, status: 'livre', proximoHorario: '14:00' },
     { id: 4, nome: 'Oficina de Automação', tipo: 'Oficina', capacidade: 20, status: 'manutencao' },
-    { id: 5, nome: 'Laboratório de Redes', tipo: 'Laboratório', capacidade: 25, status: 'livre' },
+    { id: 5, nome: 'Laboratório de Química ', tipo: 'Laboratório', capacidade: 25, status: 'livre' },
     { id: 6, nome: 'Auditório Principal', tipo: 'Auditório', capacidade: 120, status: 'livre', proximoHorario: '18:00' }
   ];
 
