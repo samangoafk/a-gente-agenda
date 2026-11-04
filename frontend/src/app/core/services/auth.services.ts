@@ -20,7 +20,7 @@ export class AuthService {
       login: 'adam@gmail.com',
       senha: '12345',
       perfil: 'Professor',
-      materia: 'Design de Interfaces',
+      materia: 'Professor de História',
       solicitacoesPendentes: 2
     },
     {
@@ -36,7 +36,7 @@ export class AuthService {
       login: 'matheus@gmail.com',
       senha: '12345',
       perfil: 'Professor',
-      materia: 'Desenvolvimento de Software',
+      materia: 'Professor de Matemática',
       solicitacoesPendentes: 0
     }
   ];
