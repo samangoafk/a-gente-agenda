@@ -13,7 +13,7 @@ export class EmailController {
       nome: string;
     },
   ) {
-    return this.emailService.enviarConfirmacaoAgendamento('seuemail@gmail.com', {
+    return this.emailService.enviarConfirmacaoAgendamento('hudson.j.silva@aluno.senai.br', {
   sala: 'Laboratório 1',
   data: '04/11/2026',
   horario: '08:00 - 10:00',

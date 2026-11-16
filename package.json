@@ -1,7 +1,11 @@
 {
   "dependencies": {
-    "@nestjs/config": "^12.0.1",
+    "@nestjs/config": "^12.1.1",
     "@nestjs/observe": "^0.3.6",
+    "nodemailer": "^10.6.0",
     "resend": "^6.32.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.2"
   }
 }
