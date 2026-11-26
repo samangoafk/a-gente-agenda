@@ -1,73 +1,136 @@
 .pagina-agendamentos {
-  background-color: #F8FAFC;
+  background-color: #f9fbfb;
   min-height: calc(100vh - 70px);
-  padding: 3rem 1.5rem;
+  padding: 2.75rem 1.5rem 4rem;
   font-family: inherit;
 }
 
 .container-agendamentos {
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
-/* Cabeçalho da Secção */
+/* Cabeçalho da Seção */
 .header-secao {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .tag-secao {
   font-size: 0.72rem;
   font-weight: 700;
-  color: #00a884;
+  color: #369b8d;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
 }
 
 .titulo-secao {
-  font-size: 2.1rem;
-  font-weight: 700;
-  color: #111827;
-  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #18222f;
+  margin: 0 0 0.45rem 0;
   letter-spacing: -0.02em;
 }
 
 .subtitulo-secao {
-  font-size: 0.95rem;
-  color: #6b7280;
+  font-size: 0.92rem;
+  color: #7c8796;
   margin: 0;
+}
+
+/* Estado Vazio (Fiel ao Protótipo) */
+.estado-vazio {
+  background-color: #ffffff;
+  border: 1px solid #ebeff2;
+  border-radius: 16px;
+  min-height: 410px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+}
+
+.icone-vazio {
+  width: 48px;
+  height: 48px;
+  background-color: #eaf6f3;
+  color: #469c8e;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.titulo-vazio {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #18222f;
+  margin: 0 0 0.5rem 0;
+}
+
+.texto-vazio {
+  font-size: 0.88rem;
+  color: #7c8796;
+  margin: 0 0 1.6rem 0;
+}
+
+.btn-ir-salas {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #62b6a7;
+  color: #143630;
+  padding: 0.72rem 1.4rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  box-shadow: 0 6px 14px rgba(98, 182, 167, 0.25);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-ir-salas:hover {
+  background-color: #52a697;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(98, 182, 167, 0.32);
 }
 
 /* Lista de Cards */
 .lista-agendamentos {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-/* Card Sóbrio estilo Figma */
+/* Card Sóbrio seguindo a estética limpa do Protótipo */
 .card-agendamento {
-  background-color: #FFFFFF;
-  border: 1px solid #d0d0cc;
-  border-radius: 20px;
-  padding: 1.25rem 1.75rem;
+  background-color: #ffffff;
+  border: 1px solid #ebeff2;
+  border-radius: 16px;
+  padding: 1.35rem 1.75rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.025);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .card-agendamento:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+  border-color: #d8e2e6;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
 }
 
-/* Badge de Data Teal/Verde */
+/* Badge de Data Teal suave */
 .badge-data {
-  background-color: #a7e2d3;
-  width: 68px;
-  height: 68px;
+  background-color: #eaf6f3;
+  width: 66px;
+  height: 66px;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -77,47 +140,48 @@
 }
 
 .badge-data .dia {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #007a5e;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #369b8d;
   line-height: 1;
 }
 
 .badge-data .mes {
   font-size: 0.68rem;
-  font-weight: 800;
-  color: #007a5e;
+  font-weight: 700;
+  color: #369b8d;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 3px;
+  letter-spacing: 0.04em;
 }
 
 /* Conteúdo Central */
 .conteudo-card {
   flex: 1;
-  min-width: 0; /* deixa textos longos quebrarem em vez de empurrar o card para fora */
+  min-width: 0;
 }
 
 .tipo-sala {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: #82827e;
+  color: #8a94a6;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .nome-sala {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #18222f;
   margin: 0 0 0.6rem 0;
 }
 
 .detalhes-agendamento {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.4rem;
   flex-wrap: wrap;
 }
 
@@ -125,75 +189,24 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.82rem;
-  color: #61615d;
-  font-weight: 500;
+  font-size: 0.84rem;
+  color: #64748b;
+  font-weight: 400;
 }
 
 .item-detalhe svg {
-  color: #71716d;
-}
-
-/* Status do Agendamento */
-.status-container {
-  flex-shrink: 0;
-}
-
-.badge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.status-confirmado {
-  background-color: #a7e2d3;
-  color: #007a5e;
-}
-
-/* Estado Vazio */
-.estado-vazio {
-  background-color: #e5e5e1;
-  border: 1px dashed #c4c4bf;
-  border-radius: 20px;
-  padding: 3rem;
-  text-align: center;
-  color: #6b7280;
-}
-
-.btn-ir-salas {
-  display: inline-block;
-  margin-top: 1rem;
-  background-color: #00a884;
-  color: #ffffff;
-  padding: 0.6rem 1.2rem;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-.status-pendente {
-  background-color: #ffedd5;
-  color: #ea580c;
-}
-
-.status-cancelado {
-  background-color: #fee2e2;
-  color: #dc2626;
+  color: #8a94a6;
 }
 
 /* Prévia da descrição enviada ao coordenador */
 .descricao-card {
   margin-top: 0.85rem;
   padding: 0.6rem 0.85rem;
-  background-color: #f8fafc;
-  border-left: 3px solid #00a884;
+  background-color: #f8fafb;
+  border-left: 3px solid #62b6a7;
   border-radius: 0 8px 8px 0;
   font-size: 0.82rem;
-  color: #475569;
+  color: #526071;
   line-height: 1.45;
 }
 
@@ -201,13 +214,12 @@
   display: block;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #00a884;
+  color: #369b8d;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.15rem;
 }
 
-/* Mostra no máximo 2 linhas e quebra palavras longas (o texto completo abre em "Editar") */
 .descricao-texto {
   margin: 0;
   overflow-wrap: anywhere;
@@ -218,12 +230,38 @@
   overflow: hidden;
 }
 
-/* Status + botão de editar empilhados */
+/* Status e Botão Editar */
 .status-container {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 0.6rem;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.status-confirmado {
+  background-color: #eaf6f3;
+  color: #2f8578;
+}
+
+.status-pendente {
+  background-color: #fff4e5;
+  color: #d97706;
+}
+
+.status-cancelado {
+  background-color: #fee2e2;
+  color: #dc2626;
 }
 
 .btn-editar {
@@ -231,24 +269,25 @@
   align-items: center;
   gap: 0.4rem;
   background-color: #ffffff;
-  border: 1px solid #00a884;
-  color: #00a884;
-  padding: 0.4rem 0.9rem;
-  border-radius: 10px;
+  border: 1px solid #d5e3e0;
+  color: #369b8d;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9px;
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-editar:hover {
-  background-color: #00a884;
-  color: #ffffff;
+  background-color: #eaf6f3;
+  border-color: #62b6a7;
+  color: #287a6e;
 }
 
 .btn-editar:focus-visible {
-  outline: 2px solid #00a884;
+  outline: 2px solid #62b6a7;
   outline-offset: 2px;
 }
 
@@ -256,7 +295,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 23, 42, 0.65);
+  background-color: rgba(15, 23, 42, 0.5);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -267,36 +306,38 @@
 
 .modal-card {
   background-color: #ffffff;
+  border: 1px solid #ebeff2;
   border-radius: 16px;
   padding: 28px;
   width: 90%;
   max-width: 460px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 35px -5px rgba(15, 23, 42, 0.12);
   animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-titulo {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #18222f;
+  margin: 0 0 0.65rem;
 }
 
 .modal-resumo {
   font-size: 0.88rem;
-  color: #64748b;
+  color: #7c8796;
   line-height: 1.5;
   margin: 0 0 1.1rem;
 }
 
 .modal-resumo strong {
-  color: #0f172a;
+  color: #18222f;
+  font-weight: 600;
 }
 
 .modal-rotulo {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: #475569;
   margin-bottom: 0.4rem;
@@ -308,18 +349,19 @@
   resize: vertical;
   min-height: 110px;
   padding: 10px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border: 1px solid #dce3e8;
+  border-radius: 10px;
   font-family: inherit;
   font-size: 0.9rem;
-  color: #0f172a;
+  color: #18222f;
   line-height: 1.45;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .modal-textarea:focus {
   outline: none;
-  border-color: #00a884;
-  box-shadow: 0 0 0 3px #e6f7f3;
+  border-color: #62b6a7;
+  box-shadow: 0 0 0 3px #eaf6f3;
 }
 
 .modal-contador {
@@ -338,33 +380,34 @@
 .btn-modal-cancelar,
 .btn-modal-salvar {
   flex: 1;
-  padding: 0.8rem;
+  padding: 0.75rem;
   border-radius: 10px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn-modal-cancelar {
   background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #475569;
+  border: 1px solid #dce3e8;
+  color: #526071;
 }
 
 .btn-modal-cancelar:hover {
-  background-color: #f1f5f9;
+  background-color: #f8fafb;
 }
 
 .btn-modal-salvar {
-  background-color: #00a884;
-  border: 1px solid #00a884;
-  color: #ffffff;
+  background-color: #62b6a7;
+  border: 1px solid #62b6a7;
+  color: #143630;
 }
 
 .btn-modal-salvar:hover {
-  background-color: #008f70;
+  background-color: #52a697;
+  border-color: #52a697;
 }
 
 @keyframes fadeIn {
