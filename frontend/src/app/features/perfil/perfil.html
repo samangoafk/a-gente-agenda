@@ -1,1 +1,232 @@
-<p>perfil works!</p>
+<app-header></app-header>
+
+<main class="pagina-perfil" *ngIf="usuario() as user">
+  <div class="container-perfil">
+
+    <!-- Cabeçalho da Página -->
+    <header class="header-perfil">
+      <span class="tag-secao">MINHA CONTA</span>
+      <h1 class="titulo-secao">Perfil</h1>
+      <p class="subtitulo-secao">Consulte suas informações e gerencie sua conta.</p>
+    </header>
+
+    <!-- Grid Principal de 2 Colunas -->
+    <div class="grid-perfil">
+
+      <!-- COLUNA ESQUERDA: Card de Identificação -->
+      <aside class="card-branco card-identificacao">
+        <div class="topo-usuario">
+          <div class="avatar-quadrado">
+            {{ iniciais() }}
+          </div>
+          <div class="dados-principais">
+            <span class="cargo-tag">{{ user.perfil }}</span>
+            <h2 class="nome-usuario">{{ user.nome }}</h2>
+            <span class="email-usuario">{{ user.login }}</span>
+          </div>
+        </div>
+
+        <hr class="divisor" />
+
+        <div class="detalhes-institucionais">
+          <div class="campo-info" *ngIf="!ehCoordenador() && user.materia">
+            <span class="label-info">Disciplina ministrada</span>
+            <strong class="valor-info">{{ user.materia }}</strong>
+          </div>
+
+          <div class="campo-info" *ngIf="ehCoordenador()">
+            <span class="label-info">Função</span>
+            <strong class="valor-info">Mediação e Gestão de Espaços</strong>
+          </div>
+
+          <div class="campo-info">
+            <span class="label-info">Instituição</span>
+            <strong class="valor-info">Escola Estadual Professor Matheus de Sousa dos Santos</strong>
+          </div>
+        </div>
+
+        <!-- Botão exclusivo para Professor -->
+        <a *ngIf="!ehCoordenador()" routerLink="/meus-agendamentos" class="btn-ver-agendamentos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Ver meus agendamentos
+        </a>
+
+        <!-- Botão exclusivo para Coordenador -->
+        <a *ngIf="ehCoordenador()" routerLink="/coordenador" class="btn-ver-agendamentos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Ver painel do coordenador
+        </a>
+      </aside>
+
+      <!-- COLUNA DIREITA -->
+      <div class="coluna-direita">
+
+        <!-- CARD SUPERIOR (APENAS PROFESSOR): Solicitações -->
+        <section class="card-branco card-solicitacoes" *ngIf="!ehCoordenador()">
+          <div class="cabecalho-solicitacoes">
+            <div class="titulo-com-icone">
+              <div 
+                class="icone-status-box"
+                [ngClass]="{
+                  'box-pendente': filtroStatus() === 'Pendente',
+                  'box-aceito': filtroStatus() === 'Confirmado',
+                  'box-recusado': filtroStatus() === 'Cancelado'
+                }">
+                <svg *ngIf="filtroStatus() === 'Pendente'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <svg *ngIf="filtroStatus() === 'Confirmado'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <svg *ngIf="filtroStatus() === 'Cancelado'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+
+              <div>
+                <h3 class="titulo-card-status">
+                  <ng-container *ngIf="filtroStatus() === 'Pendente'">
+                    {{ qtdPendentes() }} {{ qtdPendentes() === 1 ? 'solicitação pendente' : 'solicitações pendentes' }}
+                  </ng-container>
+                  <ng-container *ngIf="filtroStatus() === 'Confirmado'">
+                    {{ qtdAceitos() }} {{ qtdAceitos() === 1 ? 'solicitação aceita' : 'solicitações aceitas' }}
+                  </ng-container>
+                  <ng-container *ngIf="filtroStatus() === 'Cancelado'">
+                    {{ qtdRecusados() }} {{ qtdRecusados() === 1 ? 'solicitação recusada' : 'solicitações recusadas' }}
+                  </ng-container>
+                </h3>
+                <p class="subtitulo-card-status">
+                  <ng-container *ngIf="filtroStatus() === 'Pendente'">Aguardando confirmação da coordenação</ng-container>
+                  <ng-container *ngIf="filtroStatus() === 'Confirmado'">Reservas aprovadas e confirmadas</ng-container>
+                  <ng-container *ngIf="filtroStatus() === 'Cancelado'">Solicitações não aprovadas pela coordenação</ng-container>
+                </p>
+              </div>
+            </div>
+
+            <div class="abas-status">
+              <button 
+                type="button" 
+                class="aba-btn" 
+                [class.ativa]="filtroStatus() === 'Pendente'"
+                (click)="selecionarFiltro('Pendente')">
+                Pendentes ({{ qtdPendentes() }})
+              </button>
+              <button 
+                type="button" 
+                class="aba-btn" 
+                [class.ativa]="filtroStatus() === 'Confirmado'"
+                (click)="selecionarFiltro('Confirmado')">
+                Aceitos ({{ qtdAceitos() }})
+              </button>
+              <button 
+                type="button" 
+                class="aba-btn" 
+                [class.ativa]="filtroStatus() === 'Cancelado'"
+                (click)="selecionarFiltro('Cancelado')">
+                Recusados ({{ qtdRecusados() }})
+              </button>
+            </div>
+          </div>
+
+          <hr class="divisor" />
+
+          <div class="lista-solicitacoes" *ngIf="solicitacoesFiltradas().length > 0; else vazioTemplate">
+            <div class="linha-solicitacao" *ngFor="let item of solicitacoesFiltradas()">
+              <div class="info-linha">
+                <strong class="materia-titulo">{{ item.materia }}</strong>
+                <span class="sala-data-sub">{{ item.salaNome }} • {{ item.dataFormatada }}</span>
+              </div>
+
+              <span 
+                class="horario-destaque"
+                [ngClass]="{
+                  'cor-pendente': item.status === 'Pendente',
+                  'cor-aceito': item.status === 'Confirmado',
+                  'cor-recusado': item.status === 'Cancelado'
+                }">
+                {{ extrairHorarioInicial(item.horario) }}
+              </span>
+            </div>
+          </div>
+
+          <ng-template #vazioTemplate>
+            <div class="estado-vazio-card">
+              Nenhuma solicitação nesta categoria.
+            </div>
+          </ng-template>
+        </section>
+
+        <!-- CARD INFERIOR: Menu de Ações da Conta -->
+        <section class="card-branco card-acoes">
+          
+          <button type="button" class="item-acao" (click)="contatarCoordenador()" *ngIf="!ehCoordenador()">
+            <div class="icone-acao icone-verde">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <div class="texto-acao">
+              <strong>Entrar em contato com o coordenador</strong>
+              <span>Envie uma mensagem para a coordenação</span>
+            </div>
+            <svg class="seta-direita" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          <hr class="divisor-acao" *ngIf="!ehCoordenador()" />
+
+          <button type="button" class="item-acao" (click)="trocarSenha()">
+            <div class="icone-acao icone-verde">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="texto-acao">
+              <strong>Trocar senha</strong>
+              <span>Atualize suas credenciais de acesso</span>
+            </div>
+            <svg class="seta-direita" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          <hr class="divisor-acao" />
+
+          <button type="button" class="item-acao acao-sair" (click)="sairDaConta()">
+            <div class="icone-acao icone-vermelho">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </div>
+            <div class="texto-acao">
+              <strong class="texto-vermelho">Sair da sua conta</strong>
+              <span>Você voltará para a tela de login</span>
+            </div>
+            <svg class="seta-direita" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
