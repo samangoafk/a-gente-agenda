@@ -1,0 +1,375 @@
+.pagina-perfil {
+  background-color: #f7f9f9;
+  min-height: calc(100vh - 70px);
+  padding: 2.75rem 1.5rem;
+}
+
+.container-perfil {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+.header-perfil {
+  margin-bottom: 2rem;
+}
+
+.tag-secao {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #389e92;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.titulo-secao {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.35rem 0;
+}
+
+.subtitulo-secao {
+  font-size: 0.92rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Grid Principal */
+.grid-perfil {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.card-branco {
+  background-color: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* Card Esquerdo */
+.card-identificacao {
+  padding: 1.75rem;
+}
+
+.topo-usuario {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-quadrado {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background-color: #d6f0ec;
+  color: #1b6b61;
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dados-principais {
+  display: flex;
+  flex-direction: column;
+}
+
+.cargo-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #389e92;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.15rem;
+}
+
+.nome-usuario {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.email-usuario {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 0.15rem;
+}
+
+.divisor {
+  border: none;
+  border-top: 1px solid #f1f3f5;
+  margin: 1.35rem 0;
+}
+
+.detalhes-institucionais {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+}
+
+.campo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.label-info {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.valor-info {
+  font-size: 0.92rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.btn-ver-agendamentos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: #5cb5ab;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+
+.btn-ver-agendamentos:hover {
+  background-color: #4aa399;
+}
+
+/* Coluna Direita */
+.coluna-direita {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Card de Solicitações */
+.card-solicitacoes {
+  padding: 1.5rem 1.75rem;
+}
+
+.cabecalho-solicitacoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.titulo-com-icone {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.icone-status-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.box-pendente {
+  background-color: #fef6e0;
+  color: #d99b26;
+}
+
+.box-aceito {
+  background-color: #e6f6f3;
+  color: #2c9689;
+}
+
+.box-recusado {
+  background-color: #fdeaea;
+  color: #dc3545;
+}
+
+.titulo-card-status {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.subtitulo-card-status {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0.15rem 0 0 0;
+}
+
+/* Abas de Filtro (Pendentes / Aceitos / Recusados) */
+.abas-status {
+  display: flex;
+  background-color: #f3f5f6;
+  padding: 0.25rem;
+  border-radius: 10px;
+  gap: 0.2rem;
+}
+
+.aba-btn {
+  border: none;
+  background: transparent;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.aba-btn.ativa {
+  background-color: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Lista de Solicitações */
+.lista-solicitacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.linha-solicitacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info-linha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.materia-titulo {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.sala-data-sub {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.horario-destaque {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.cor-pendente { color: #d99b26; }
+.cor-aceito { color: #2c9689; }
+.cor-recusado { color: #dc3545; }
+
+.estado-vazio-card {
+  text-align: center;
+  padding: 1.25rem 0;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* Card de Ações Inferiores */
+.card-acoes {
+  padding: 0.5rem 0;
+  overflow: hidden;
+}
+
+.item-acao {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.item-acao:hover {
+  background-color: #f9fafb;
+}
+
+.icone-acao {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icone-verde {
+  background-color: #e6f6f3;
+  color: #2c9689;
+}
+
+.icone-vermelho {
+  background-color: #fdeaea;
+  color: #dc3545;
+}
+
+.texto-acao {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.texto-acao strong {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.texto-acao strong.texto-vermelho {
+  color: #dc3545;
+}
+
+.texto-acao span {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.seta-direita {
+  color: #9ca3af;
+}
+
+.divisor-acao {
+  border: none;
+  border-top: 1px solid #f1f3f5;
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .grid-perfil {
+    grid-template-columns: 1fr;
+  }
+}
