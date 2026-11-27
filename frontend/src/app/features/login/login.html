@@ -71,6 +71,27 @@
         <button type="submit" class="botao-entrar">
           Entrar <span>→</span>
         </button>
+
+        <!-- Acesso Rápido para Demonstração -->
+        <div class="demo-acesso-rapido">
+          <span class="demo-titulo">Acesso Rápido</span>
+          <div class="demo-botoes">
+            <button type="button" class="btn-demo" (click)="entrarRapido('yurim.contato@gmail.com')">
+              <strong>Yuri</strong>
+              <small>Coordenador</small>
+            </button>
+
+            <button type="button" class="btn-demo" (click)="entrarRapido('adamuscastro133@gmail.com')">
+              <strong>Adam</strong>
+              <small>Professor</small>
+            </button>
+
+            <button type="button" class="btn-demo" (click)="entrarRapido('matheus.a.dias.contato@gmail.com')">
+              <strong>Matheus</strong>
+              <small>Professor</small>
+            </button>
+          </div>
+        </div>
       </form>
     </div>
 
