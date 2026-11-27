@@ -42,4 +42,14 @@ export class Login {
 
     this.router.navigate(['/salas']);
   }
+
+  entrarRapido(email: string): void {
+    this.erroLogin.set(false);
+
+    const loginRealizado = this.authService.loginRapido(email);
+
+    if (loginRealizado) {
+      this.router.navigate(['/salas']);
+    }
+  }
 }
