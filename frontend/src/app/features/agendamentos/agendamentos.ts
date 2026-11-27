@@ -9,6 +9,7 @@ interface SlotHorario {
   inicio: string;
   fim: string;
   livre: boolean;
+  passado?: boolean;
   professor?: string;
   disciplina?: string;
 }
@@ -24,7 +25,7 @@ export class Agendamentos implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private authService = inject(AuthService);
-  private salasService = inject(SalasService); 
+  private salasService = inject(SalasService);
 
   salaId: number | null = null;
   salaNome: string = 'Laboratório de Informática 01';
@@ -34,13 +35,9 @@ export class Agendamentos implements OnInit {
   dataLargaFormatada: string = '';
   dataCurtaFormatada: string = '';
 
-  // Controle de exibição do modal customizado
   mostrarModalSucesso: boolean = false;
-
-  // Matéria vem do perfil do professor logado (não é mais selecionável)
   materia: string = '';
 
-  // Menu de descrição que é enviada ao coordenador junto com a solicitação
   descricaoAberta: boolean = false;
   descricao: string = '';
   readonly limiteDescricao = 300;
@@ -77,6 +74,7 @@ export class Agendamentos implements OnInit {
     if (tipoQuery) this.salaTipo = tipoQuery;
 
     this.formatarDatas();
+    this.atualizarDisponibilidadePorHorario();
   }
 
   private formatarDatas(): void {
@@ -94,8 +92,48 @@ export class Agendamentos implements OnInit {
     });
   }
 
+  isSlotPassado(slot: SlotHorario): boolean {
+    const agora = new Date();
+    const hojeSemHora = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+    const dataEscolhidaSemHora = new Date(
+      this.dataSelecionada.getFullYear(),
+      this.dataSelecionada.getMonth(),
+      this.dataSelecionada.getDate()
+    );
+
+    if (dataEscolhidaSemHora < hojeSemHora) return true;
+    if (dataEscolhidaSemHora > hojeSemHora) return false;
+
+    const [hora, minuto] = slot.inicio.split(':').map(Number);
+    const inicioSlot = new Date(
+      this.dataSelecionada.getFullYear(),
+      this.dataSelecionada.getMonth(),
+      this.dataSelecionada.getDate(),
+      hora,
+      minuto,
+      0
+    );
+
+    return inicioSlot <= agora;
+  }
+
+  private atualizarDisponibilidadePorHorario(): void {
+    this.horarios = this.horarios.map((slot) => {
+      if (this.isSlotPassado(slot)) {
+        return {
+          ...slot,
+          livre: false,
+          passado: true,
+          professor: slot.professor ?? 'Horário encerrado',
+          disciplina: slot.disciplina ?? 'Indisponível'
+        };
+      }
+      return slot;
+    });
+  }
+
   selecionarHorario(slot: SlotHorario): void {
-    if (!slot.livre) return;
+    if (!slot.livre || this.isSlotPassado(slot)) return;
     this.horarioSelecionado = slot;
   }
 
@@ -111,17 +149,23 @@ export class Agendamentos implements OnInit {
     this.router.navigate(['/salas']);
   }
 
-  confirmarAgendamento(): void {
+  async confirmarAgendamento(): Promise<void> {
     const usuario = this.authService.usuarioLogado();
     if (!this.horarioSelecionado || !usuario || this.salaId === null || !this.materia) return;
+
+    if (this.isSlotPassado(this.horarioSelecionado)) {
+      this.atualizarDisponibilidadePorHorario();
+      this.horarioSelecionado = null;
+      return;
+    }
 
     const d = this.dataSelecionada;
     const ano = d.getFullYear();
     const mesNum = String(d.getMonth() + 1).padStart(2, '0');
     const diaNum = String(d.getDate()).padStart(2, '0');
     const horario = `${this.horarioSelecionado.inicio} — ${this.horarioSelecionado.fim}`;
+    const dataFormatada = d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-    // Adiciona a solicitação no serviço independentemente de já haver outras pendentes
     this.salasService.adicionarAgendamento({
       salaId: this.salaId,
       salaNome: this.salaNome,
@@ -130,7 +174,7 @@ export class Agendamentos implements OnInit {
       professorNome: usuario.nome,
       materia: this.materia,
       data: `${ano}-${mesNum}-${diaNum}`,
-      dataFormatada: d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      dataFormatada,
       dia: diaNum,
       mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
       horario,
@@ -138,7 +182,24 @@ export class Agendamentos implements OnInit {
       descricao: this.descricao.trim() || undefined
     });
 
-    // Dispara sempre o modal customizado de confirmação
+    try {
+      await fetch('http://localhost:3001/email/agendamento', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          professorNome: usuario.nome,
+          professorEmail: usuario.login,
+          coordenadorEmail: 'yurim.contato@gmail.com',
+          sala: this.salaNome,
+          materia: this.materia,
+          dataHorario: `${dataFormatada} • ${horario}`,
+          descricao: this.descricao.trim() || 'Nenhuma observação adicional informada.'
+        })
+      });
+    } catch (erro) {
+      console.error('Erro ao disparar e-mails:', erro);
+    }
+
     this.mostrarModalSucesso = true;
   }
 

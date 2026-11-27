@@ -6,18 +6,23 @@ export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
   @Post()
-  async enviar(
+  async enviar(@Body() body: { email: string; nome: string }) {
+    return this.emailService.enviarEmail(body.email, body.nome);
+  }
+
+  @Post('agendamento')
+  async notificarAgendamento(
     @Body()
     body: {
-      email: string;
-      nome: string;
+      professorNome: string;
+      professorEmail: string;
+      coordenadorEmail: string;
+      sala: string;
+      materia?: string;
+      dataHorario: string;
+      descricao?: string;
     },
   ) {
-    return this.emailService.enviarConfirmacaoAgendamento('hudson.j.silva@aluno.senai.br', {
-  sala: 'Laboratório 1',
-  data: '04/11/2026',
-  horario: '08:00 - 10:00',
-  materia: 'Teste',
-});
-}
+    return this.emailService.notificarNovoAgendamento(body);
+  }
 }

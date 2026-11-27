@@ -16,11 +16,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }),
 
     // NestJS Observe
-    ObserveModule.forRoot({
-      appKey: 'YOUR_APP_KEY',
-      appSecret: 'YOUR_APP_SECRET',
-      serviceId: 'back-end',
-    }),
 
     // Módulo responsável pelos e-mails
     EmailModule,
