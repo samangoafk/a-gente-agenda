@@ -82,6 +82,22 @@ export class AuthService {
     return false;
   }
 
+  loginRapido(email: string): boolean {
+    const encontrado = this.usuariosMock.find(
+      (u) => u.login.toLowerCase() === email.trim().toLowerCase()
+    );
+
+    if (encontrado) {
+      this.usuarioLogado.set(encontrado);
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('usuarioLogado', JSON.stringify(encontrado));
+      }
+      return true;
+    }
+
+    return false;
+  }
+
   logout(): void {
     this.usuarioLogado.set(null);
     if (isPlatformBrowser(this.platformId)) {
