@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
@@ -26,6 +26,7 @@ export class Agendamentos implements OnInit {
   private router = inject(Router);
   private authService = inject(AuthService);
   private salasService = inject(SalasService);
+  private cdr = inject(ChangeDetectorRef);
 
   salaId: number | null = null;
   salaNome: string = 'Laboratório de Informática 01';
@@ -36,6 +37,7 @@ export class Agendamentos implements OnInit {
   dataCurtaFormatada: string = '';
 
   mostrarModalSucesso: boolean = false;
+  enviando: boolean = false;
   materia: string = '';
 
   descricaoAberta: boolean = false;
@@ -150,6 +152,8 @@ export class Agendamentos implements OnInit {
   }
 
   async confirmarAgendamento(): Promise<void> {
+    if (this.enviando || this.mostrarModalSucesso) return;
+
     const usuario = this.authService.usuarioLogado();
     if (!this.horarioSelecionado || !usuario || this.salaId === null || !this.materia) return;
 
@@ -159,30 +163,33 @@ export class Agendamentos implements OnInit {
       return;
     }
 
-    const d = this.dataSelecionada;
-    const ano = d.getFullYear();
-    const mesNum = String(d.getMonth() + 1).padStart(2, '0');
-    const diaNum = String(d.getDate()).padStart(2, '0');
-    const horario = `${this.horarioSelecionado.inicio} — ${this.horarioSelecionado.fim}`;
-    const dataFormatada = d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
-
-    this.salasService.adicionarAgendamento({
-      salaId: this.salaId,
-      salaNome: this.salaNome,
-      tipo: this.salaTipo.toUpperCase(),
-      professorId: usuario.id,
-      professorNome: usuario.nome,
-      materia: this.materia,
-      data: `${ano}-${mesNum}-${diaNum}`,
-      dataFormatada,
-      dia: diaNum,
-      mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
-      horario,
-      status: 'Pendente',
-      descricao: this.descricao.trim() || undefined
-    });
+    this.enviando = true;
+    this.cdr.detectChanges();
 
     try {
+      const d = this.dataSelecionada;
+      const ano = d.getFullYear();
+      const mesNum = String(d.getMonth() + 1).padStart(2, '0');
+      const diaNum = String(d.getDate()).padStart(2, '0');
+      const horario = `${this.horarioSelecionado.inicio} — ${this.horarioSelecionado.fim}`;
+      const dataFormatada = d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      this.salasService.adicionarAgendamento({
+        salaId: this.salaId,
+        salaNome: this.salaNome,
+        tipo: this.salaTipo.toUpperCase(),
+        professorId: usuario.id,
+        professorNome: usuario.nome,
+        materia: this.materia,
+        data: `${ano}-${mesNum}-${diaNum}`,
+        dataFormatada,
+        dia: diaNum,
+        mes: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '').toUpperCase(),
+        horario,
+        status: 'Pendente',
+        descricao: this.descricao.trim() || undefined
+      });
+
       await fetch('http://localhost:3001/email/agendamento', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -198,9 +205,11 @@ export class Agendamentos implements OnInit {
       });
     } catch (erro) {
       console.error('Erro ao disparar e-mails:', erro);
+    } finally {
+      this.enviando = false;
+      this.mostrarModalSucesso = true;
+      this.cdr.detectChanges();
     }
-
-    this.mostrarModalSucesso = true;
   }
 
   fecharEVoltar(): void {
