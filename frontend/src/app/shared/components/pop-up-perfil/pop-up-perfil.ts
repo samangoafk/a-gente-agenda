@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { Usuario } from '../../../models/usuarios.model';
 
 @Component({
@@ -10,6 +11,8 @@ import { Usuario } from '../../../models/usuarios.model';
   styleUrl: './pop-up-perfil.css'
 })
 export class PopUpPerfil {
+  private router = inject(Router);
+
   @Input() exibe: boolean = false;
   @Input() usuario: Usuario | null = null;
   @Input() iniciais: string = 'US';
@@ -24,6 +27,8 @@ export class PopUpPerfil {
 
   onVerPerfil(): void {
     this.verPerfil.emit();
+    this.fechar.emit();
+    this.router.navigate(['/perfil']);
   }
 
   onLogout(): void {
